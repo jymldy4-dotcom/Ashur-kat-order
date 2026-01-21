@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام مطعم فؤاد | الكاشير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #f4f6f8; padding: 20px; margin: 0; }
+        
+        /* === شاشة القفل === */
+        #loginOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #2d3436; z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .login-box { text-align: center; }
+        .login-input { padding: 15px; border-radius: 12px; border: none; text-align: center; font-size: 1.2rem; outline: none; width: 250px; margin-bottom: 15px; }
+        .login-btn { padding: 10px 40px; background: #e17055; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; }
+        .login-btn:hover { background: #d63031; }
+
+        /* === باقي التصميم === */
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header-title { display: flex; align-items: center; gap: 10px; color: #d63031; }
+        .refresh-btn { background: #2d3436; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s; }
+        .refresh-btn:hover { background: #000; }
+        .order-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-right: 6px solid #d63031; transition: transform 0.2s; }
+        .order-card:hover { transform: translateY(-2px); }
+        .order-header { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding-bottom: 10px; margin-bottom: 10px; }
+        .order-id { font-weight: 800; color: #d63031; font-size: 1.1rem; }
+        .order-time { color: #636e72; font-size: 0.9rem; }
+        .order-items { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; line-height: 1.8; color: #2d3436; }
+        .order-meta { background: #f9f9f9; padding: 10px; border-radius: 8px; font-size: 0.95rem; color: #555; }
+        .order-meta div { margin-bottom: 5px; }
+        .order-actions { display: flex; justify-content: flex-end; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
+        .print-btn { background: #d63031; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .print-btn:hover { background: #b71c1c; }
+
+        @media print {
+            body * { visibility: hidden; }
+            .printable-area, .printable-area * { visibility: visible; }
+            .printable-area { position: absolute; left: 0; top: 0; width: 100%; text-align: center; color: black; background: white; padding: 0; margin: 0; }
+            .no-print { display: none !important; }
+            .receipt-box { width: 80mm; margin: 0 auto; border: 1px solid #000; padding: 5mm; text-align: right; direction: rtl; font-family: 'Courier New', monospace; }
+            .receipt-header { text-align: center; margin-bottom: 10px; }
+            .receipt-title { font-weight: 900; font-size: 1.4rem; }
+            .receipt-line { border-bottom: 1px dashed #000; margin: 8px 0; }
+            .receipt-item { font-size: 1.1rem; font-weight: bold; margin: 5px 0; }
+            .receipt-total { font-size: 1.3rem; font-weight: 900; text-align: center; margin-top: 10px; border: 2px solid #000; padding: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2 style="color:white; margin-bottom:20px; font-size:2rem;">🔒 نظام إدارة مطعم فؤاد</h2>
+            <input type="password" id="adminPass" class="login-input" placeholder="أدخل رمز الدخول">
+            <br>
+            <button onclick="checkPass()" class="login-btn">دخول</button>
+            <p id="errorMsg" style="color:#ff7675; margin-top:15px; display:none; font-weight:bold;">الرمز خطأ! حاول مرة أخرى</p>
+        </div>
+    </div>
+
+    <div class="dashboard-header no-print">
+        <div class="header-title">
+            <i class="fas fa-fire fa-2x"></i>
+            <div>
+                <h2 style="margin:0;">مطعم فؤاد</h2>
+                <span style="font-size:0.9rem; color:#666;">نظام استلام الطلبات</span>
+            </div>
+        </div>
+        <button class="refresh-btn" onclick="fetchOrders()">
+            <i class="fas fa-sync"></i> تحديث
+        </button>
+    </div>
+
+    <div id="ordersContainer">
+        <p style="text-align:center; margin-top:50px;">جاري الاتصال بالنظام...</p>
+    </div>
+
+    <div id="printSection" class="printable-area"></div>
+
+    <script>
+        // 🔴 الرابط محدث حسب طلبك
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1elvhQB0-svU-_H5xh2jrWtTfOeRRiCmGdrXo0RAzM32SfsfJ0t5yOeKSvZE29SY6Xg/exec';
+
+        // 🔐 كلمة السر هنا
+        const SECRET_PASS = "121212";
+
+        // دالة التحقق من الرمز
+        function checkPass() {
+            const input = document.getElementById('adminPass').value;
+            if(input === SECRET_PASS) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                sessionStorage.setItem('isAdmin', 'true');
+                fetchOrders(); // تشغيل النظام فقط بعد الدخول الصحيح
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        // تشغيل زر Enter
+        document.getElementById("adminPass").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") { checkPass(); }
+        });
+
+        // عند تحميل الصفحة
+        window.onload = function() {
+            // التحقق اذا كان مسجل دخول سابقاً في نفس الجلسة
+            if(sessionStorage.getItem('isAdmin') === 'true') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                fetchOrders();
+            }
+        };
+
+function fetchOrders() {
+            const container = document.getElementById('ordersContainer');
+            document.querySelector('.refresh-btn i').className = 'fas fa-spinner fa-spin';
+
+            fetch(GOOGLE_SCRIPT_URL)
+            .then(response => response.json())
+            .then(data => {
+                container.innerHTML = ''; 
+                
+                // فلترة طلبات فؤاد
+                const fuadOrders = data.filter(order => 
+                    order.items.toLowerCase().includes('فؤاد') || 
+                    order.items.toLowerCase().includes('fuad')
+                );
+
+                if(fuadOrders.length === 0) {
+                    container.innerHTML = `<div style="text-align:center; margin-top:50px; color:#777;"><p>لا توجد طلبات جديدة.</p></div>`;
+                    document.querySelector('.refresh-btn i').className = 'fas fa-sync';
+                    return;
+                }
+                
+                fuadOrders.slice(0, 20).forEach((order, index) => {
+                    let dateObj = new Date(order.time);
+                    let timeStr = dateObj.toLocaleTimeString('ar-IQ', {hour: '2-digit', minute:'2-digit'});
+
+                    let allItems = order.items.split(' | ');
+                    
+                    // --- 🧠 الحساب الذكي ---
+                    let vendorTotal = 0; // حصة فؤاد فقط
+                    let cleanItems = [];
+
+                    allItems.forEach(item => {
+                        // هل هذا العنصر تابع لفؤاد؟ (من خلال فحص المصفوفة الأصلية بالموقع او الاسم)
+                        // بما اننا ما نملك vendorId هنا، نعتمد ان الادمن يعرض بس اللي بيه اسم فؤاد
+                        // *ملاحظة:* لتبسيط الامر، سنعتمد الفلترة النصية اللي سويناها قبل
+                        // لكن اذا اردت دقة 100% لازم index.html يرسل اسم المطعم بالنص
+                        
+                        // هنا سنفترض ان الطلب وصل من index.html الجديد وبه اقواس {}
+                        if(item.includes('فؤاد') || item.includes('Fuad') || item.includes('fuad')) {
+                            // استخراج السعر من داخل القوس {}
+                            let match = item.match(/\{(\d+)\}/);
+                            let price = match ? parseInt(match[1]) : 0;
+                            vendorTotal += price;
+                            
+                            // تنظيف النص للعرض (ازالة السعر والاقواس)
+                            let cleanText = item.replace(/\{(\d+)\}/, '').trim();
+                            cleanItems.push(cleanText);
+                        }
+                    });
+
+                    // اذا لسبب ما ماكو عناصر (خطأ قديم) نعرض النص الاصلي
+                    let displayItems = cleanItems.length > 0 ? cleanItems.join('<br>') : order.items;
+                    if(vendorTotal === 0) vendorTotal = parseInt(order.total); // للطلبات القديمة
+
+                    let card = document.createElement('div');
+                    card.className = 'order-card no-print';
+                    
+                    card.innerHTML = `
+                        <div class="order-header">
+                            <span class="order-id">#طلب_${index+1}</span>
+                            <span class="order-time">${timeStr}</span>
+                        </div>
+                        <div class="order-items">${displayItems}</div>
+                        <div class="order-meta">
+                            <div>📍 <b>المنطقة:</b> ${order.region}</div>
+                            <div style="margin-top:5px; color:#d63031; font-size:1.1rem;">
+                                💵 <b>حساب المطعم: ${vendorTotal.toLocaleString()} د.ع</b>
+                            </div>
+                            <div style="font-size:0.8rem; color:#888;">
+                                📦 مجموع فاتورة الزبون (مع التوصيل): ${parseInt(order.total).toLocaleString()} د.ع
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <button class="print-btn" onclick='printReceipt(${JSON.stringify(order)}, ${JSON.stringify(cleanItems)}, ${vendorTotal})'>
+                                <i class="fas fa-print"></i> طباعة الوصل
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+                document.querySelector('.refresh-btn i').className = 'fas fa-sync';
+            })
+            .catch(error => console.error(error));
+        }
+
+   function printReceipt(order, cleanItems, vendorTotal) {
+            let dateObj = new Date(order.time);
+            let timeStr = dateObj.toLocaleTimeString('ar-IQ', {hour: '2-digit', minute:'2-digit'});
+            let dateStr = dateObj.toLocaleDateString('ar-IQ');
+            let itemsHTML = cleanItems.map(item => `<div class="receipt-item">- ${item.trim()}</div>`).join('');
+
+            let receiptHTML = `
+                <div class="receipt-box">
+                    <div class="receipt-header">
+                        <div class="receipt-title">مطعم فؤاد 🍔</div>
+                    </div>
+                    <div class="receipt-line"></div>
+                    <div>📅 ${dateStr} | 🕒 ${timeStr}</div>
+                    <div style="font-weight:bold;">📍 ${order.region}</div>
+                    <div class="receipt-line"></div>
+                    <div style="text-align:right; font-weight:bold;">الطلبات:</div>
+                    ${itemsHTML}
+                    <div class="receipt-line"></div>
+                    
+                    <div class="receipt-total">المطلوب: ${vendorTotal.toLocaleString()} د.ع</div>
+                    
+                    </div>
+            `;
+            document.getElementById('printSection').innerHTML = receiptHTML;
+            window.print();
+        }
+      </script>
+</body>
+</html>

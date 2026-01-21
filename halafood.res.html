@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام هلا فود | الكاشير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #f0f2f5; padding: 20px; margin: 0; }
+        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a1a1a; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .login-input { padding: 15px; border-radius: 12px; border: none; text-align: center; font-size: 1.2rem; width: 260px; margin-bottom: 15px; }
+        .login-btn { padding: 10px 40px; background: #00b894; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 10px; border-bottom: 4px solid #00b894; }
+        .order-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-right: 6px solid #00b894; }
+        .order-id { font-weight: 800; color: #00b894; }
+        .print-btn { background: #00b894; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        @media print {
+            body * { visibility: hidden; }
+            .printable-area, .printable-area * { visibility: visible; }
+            .printable-area { position: absolute; left: 0; top: 0; width: 100%; text-align: center; }
+            .receipt-box { width: 80mm; margin: 0 auto; border: 1px solid #000; padding: 5mm; text-align: right; direction: rtl; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay">
+        <h2 style="color:white; margin-bottom:20px;">🔒 نظام مطعم هلا فود</h2>
+        <input type="password" id="adminPass" class="login-input" placeholder="أدخل رمز الدخول">
+        <button onclick="checkPass()" class="login-btn">دخول للنظام</button>
+        <p id="errorMsg" style="color:#ff7675; margin-top:15px; display:none;">الرمز غير صحيح</p>
+    </div>
+
+    <div class="dashboard-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <i class="fas fa-utensils fa-2x" style="color:#00b894;"></i>
+            <h2>هلا فود | Hala Food</h2>
+        </div>
+        <button onclick="fetchOrders()" style="background:#333; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;"><i class="fas fa-sync"></i> تحديث</button>
+    </div>
+
+    <div id="ordersContainer"></div>
+    <div id="printSection" class="printable-area"></div>
+
+<script>
+        // 🔴 تأكد أن هذا الرابط هو الرابط الطويل الخاص بك
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1elvhQB0-svU-_H5xh2jrWtTfOeRRiCmGdrXo0RAzM32SfsfJ0t5yOeKSvZE29SY6Xg/exec';
+        
+        const SECRET_PASS = "654321"; // رمز هلا فود
+
+        // دالة التحقق من الرمز
+        function checkPass() {
+            const input = document.getElementById('adminPass').value;
+            if(input === SECRET_PASS) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                sessionStorage.setItem('isHalaAdmin', 'true'); // حفظ الدخول
+                fetchOrders();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        // تشغيل زر Enter للسرعة
+        document.getElementById("adminPass").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") checkPass();
+        });
+
+        // ✅ التصحيح هنا: تشغيل التحقق تلقائياً عند تحديث الصفحة
+        window.onload = function() {
+            if(sessionStorage.getItem('isHalaAdmin') === 'true') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                fetchOrders();
+            }
+        };
+
+        function fetchOrders() {
+            const container = document.getElementById('ordersContainer');
+            fetch(GOOGLE_SCRIPT_URL)
+            .then(res => res.json())
+            .then(data => {
+                container.innerHTML = '';
+                // فلترة هلا فود
+                const halaOrders = data.filter(order => order.items.includes('هلا') || order.items.includes('Hala'));
+                
+                if(halaOrders.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; margin-top:20px;">لا توجد طلبات جديدة</p>';
+                    return;
+                }
+
+                halaOrders.forEach((order, index) => {
+                    let allItems = order.items.split(' | ');
+                    let vendorTotal = 0;
+                    let cleanItems = [];
+
+                    allItems.forEach(item => {
+                        if(item.includes('هلا') || item.includes('Hala')) {
+                            let match = item.match(/\{(\d+)\}/);
+                            let price = match ? parseInt(match[1]) : 0;
+                            vendorTotal += price;
+                            let cleanText = item.replace(/\{(\d+)\}/, '').trim();
+                            cleanItems.push(cleanText);
+                        }
+                    });
+
+                    if(vendorTotal === 0) vendorTotal = parseInt(order.total); 
+
+                    container.innerHTML += `
+                        <div class="order-card">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                <span class="order-id">#طلب_هلا_${index+1}</span>
+                                <span style="font-size:0.8rem;">${new Date(order.time).toLocaleTimeString('ar-IQ')}</span>
+                            </div>
+                            <div style="font-size:1.1rem; font-weight:bold; margin-bottom:10px;">
+                                ${cleanItems.join('<br>')}
+                            </div>
+                            <div style="background:#f0f2f5; padding:10px; border-radius:8px;">
+                                💵 <b>حساب المطعم: ${vendorTotal.toLocaleString()} د.ع</b>
+                            </div>
+                            <div style="margin-top:10px;">
+                                <button class="print-btn" onclick='printHala(${JSON.stringify(order)}, ${JSON.stringify(cleanItems)}, ${vendorTotal})'>طباعة الوصل</button>
+                            </div>
+                        </div>`;
+                });
+            });
+        }
+
+        function printHala(order, cleanItems, vendorTotal) {
+            let itemsHTML = cleanItems.map(i => `<div>- ${i}</div>`).join('');
+            document.getElementById('printSection').innerHTML = `
+                <div class="receipt-box">
+                    <h3>مطعم هلا فود 🍕</h3>
+                    <hr>
+                    <div>${new Date(order.time).toLocaleDateString('ar-IQ')}</div>
+                    <div>المنطقة: ${order.region}</div>
+                    <hr>
+                    ${itemsHTML}
+                    <hr>
+                    <div style="font-weight:bold; font-size:1.2rem;">حسابنا: ${vendorTotal.toLocaleString()} د.ع</div>
+                    </div>`;
+            window.print();
+        }
+        
+        // تحديث تلقائي كل 30 ثانية
+        setInterval(function(){
+            if(sessionStorage.getItem('isHalaAdmin') === 'true') fetchOrders();
+        }, 30000);
+    </script>
+</body>
+</html>
