@@ -15,7 +15,7 @@
             --accent: #d4af37;    /* ذهبي ملكي */
             --bg-body: #f7f5f0;   /* لون ورق البردي */
             --bg-card: #ffffff;
-            --text-dark: #2d1b0e; /* بني غامق */
+            --text-dark: #2d1b0e; /* بني غامق للكتابة */
             --text-gray: #6b5c52;
             --shadow: 0 10px 30px rgba(139, 46, 24, 0.1);
             --radius: 16px;
@@ -144,6 +144,16 @@
         .options-container { display: none; background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #eee; }
         .opt-label { display: flex; gap: 10px; padding: 8px; cursor: pointer; }
         .note-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ccc; margin-bottom: 10px; background: #fff; }
+        
+        /* 🆕 ستايل زر الإغلاق (X) */
+        .close-icon { 
+            position: absolute; top: 15px; left: 15px; 
+            background: #eee; width: 30px; height: 30px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-weight: bold; color: var(--text-dark); transition: 0.2s;
+            z-index: 10;
+        }
+        .close-icon:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
@@ -175,7 +185,9 @@
     </div>
 
     <div class="modal-overlay" id="addModal">
-        <div class="modal-box">
+        <div class="modal-box" style="position: relative;">
+            <div class="close-icon" onclick="closeAddModal()">✕</div>
+            
             <h3 id="modalItemName" style="text-align: center; color:var(--primary); margin-bottom:5px;"></h3>
             <p style="text-align:center; color:#777; font-size:0.9rem;">الكمية والإضافات</p>
             
@@ -202,7 +214,11 @@
             </div>
 
             <input type="text" id="itemNote" class="note-input" placeholder="ملاحظة إضافية (اختياري)...">
-            <button class="action-btn" onclick="addToCartConfirm()">أضف للسلة ✅</button>
+            
+            <div style="display:flex; gap:10px;">
+                <button class="action-btn" onclick="addToCartConfirm()">أضف للسلة ✅</button>
+                <button class="action-btn" onclick="closeAddModal()" style="background:#eee; color:#333;">إلغاء ❌</button>
+            </div>
         </div>
     </div>
 
@@ -254,14 +270,10 @@
     </div>
 
     <script>
-        // 🔴🔴 الصق رابط السكربت الطويل هنا 🔴🔴
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1elvhQB0-svU-_H5xh2jrWtTfOeRRiCmGdrXo0RAzM32SfsfJ0t5yOeKSvZE29SY6Xg/exec';
-
-        // === 1. إعدادات السائقين ===
         const driversPhone = { 'driver1': '9647717324456', 'driver2': '9647717324456', 'default': '9647717324456' };
         const EXTRA_STOP_FEE = 1000;
 
-        // === 2. المناطق ===
         const deliveryRegions = [
             { name: "بعاجة", price: 2250, driver_key: "driver1" }, { name: "الحي العسكري", price: 2250, driver_key: "driver1" },
             { name: "الجميلة", price: 2250, driver_key: "driver1" }, { name: "حي الجمعية", price: 2250, driver_key: "driver1" },
@@ -270,7 +282,6 @@
             { name: "الخصم", price: 2500, driver_key: "driver2" }, { name: "السكنية", price: 4250, driver_key: "driver2" }
         ];
 
-        // === 3. المتاجر ===
         const vendors = [
             { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د' },
             { id: 'osama', name: 'مطعم ومشويات أسامة', type: 'restaurant', img: 'img/asamh.jpg', time: '40-50 د' },
@@ -281,46 +292,34 @@
             { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د' },
         ];
 
-        // === 4. المنتجات ===
         const products = [
-            // سبايسي
              { id: 55, vid: 'spicy', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
             { id: 56, vid: 'spicy', name: 'شاورما دجاج', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
             { id: 57, vid: 'spicy', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
             { id: 58, vid: 'spicy', name: 'ريزو دجاج', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500' },
             { id: 59, vid: 'spicy', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
-
-            // فؤاد
             { id: 1, vid: 'fuad', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
             { id: 2, vid: 'fuad', name: 'شاورما دجاج', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
             { id: 3, vid: 'fuad', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
             { id: 4, vid: 'fuad', name: 'ريزو دجاج', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500' },
             { id: 5, vid: 'fuad', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
             { id: 34,vid:'fuad', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
-            // أسامة
             { id: 10, vid: 'osama', name: 'نفر كباب', price: 10000, isHot: true, img: 'img/kabab.jpg' },
             { id: 11, vid: 'osama', name: 'دجاجة فحم', price: 14000, isHot: false, img: 'img/djaj.jpg' },
             { id: 12, vid: 'osama', name: 'تكة لحم', price: 12000, isHot: false, img: 'img/tkh.jpg' },
-            
-            // هلا فود
             { id: 50, vid: 'hala', name: 'سندويج كرسبي', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=500' },
             { id: 51, vid: 'hala', name: 'سندويج إسكالوب', price: 4500, isHot: false, img: 'https://images.unsplash.com/photo-1536521642388-441263f88a61?w=500' },
             { id: 52, vid: 'hala', name: 'ساندويش فاهيتا', price: 4500, isHot: false, img: 'img/faheta.jpg' },
             { id: 53, vid: 'hala', name: 'بيتزا دجاج', price: 7500, isHot: false, img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500' },
             { id: 54, vid: 'hala', name: 'تشيكن سبايسي', price: 6000, isHot: false, img: 'https://images.unsplash.com/photo-1615557960916-5f4791effe9d?w=500' },
             { id: 34, vid: 'hala', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
-            // زياد
             { id: 20, vid: 'ziad', name: 'زيت (1 لتر)', price: 2250, isHot: false, img: 'img/tunsa.jpg' },
             { id: 21, vid: 'ziad', name: 'شاي (500غ)', price: 4000, isHot: false, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500' },
             { id: 22, vid: 'ziad', name: 'نوتيلا وسط', price: 5000, isHot: false, img: 'img/nu.jpg' },
             { id: 23, vid: 'ziad', name: 'تمن عنبر (كيلو)', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500' },
             { id: 34, vid: 'ziad', name: 'بيبسي', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
-            
-            // بلو بيري
             { id: 30, vid: 'blue', name: 'عصير برتقال', price: 3000, isHot: false, img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500' },
             { id: 31, vid: 'blue', name: 'كوكتيل بلو بيري', price: 4000, isHot: true, img: 'img/koktel.jpg' },
-            
-            // كندر
             { id: 40, vid: 'kinder', name: 'آيس كريم كندر', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=500' },
             { id: 41, vid: 'kinder', name: 'وافل نوتيلا', price: 4000, isHot: false, img: 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=500' },
             { id: 42, vid: 'kinder', name: 'كريب نوتيلا', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=500' },
@@ -331,7 +330,6 @@
         let tempProduct = null;
         let currentQty = 1;
 
-        // 🔥 التعديل الأول: فحص عند التحميل 🔥
         window.onload = () => {
             renderVendors(vendors);
             populateRegions();
@@ -339,7 +337,6 @@
             checkPendingOrder(); 
         };
 
-        // 🔥 التعديل الثاني: فحص عند العودة من الواتساب 🔥
         document.addEventListener("visibilitychange", () => {
             if (document.visibilityState === "visible") {
                 checkPendingOrder();
@@ -352,7 +349,6 @@
             }
         }
 
-        // --- باقي الدوال ---
         function populateRegions() {
             const select = document.getElementById('deliveryArea');
             deliveryRegions.forEach((region, index) => {
@@ -454,6 +450,12 @@
             document.getElementById('addModal').style.display = 'none';
             updateCartUI();
         }
+        
+        // 🆕 دالة الإغلاق (X)
+        function closeAddModal() {
+            document.getElementById('addModal').style.display = 'none';
+        }
+
         function updateCartUI() {
             const count = cart.length;
             const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
@@ -511,7 +513,6 @@
             }
         }
 
-        // --- الدوال الجديدة للإرسال والتأكيد ---
         function sendToWhatsApp() {
             const areaIndex = document.getElementById('deliveryArea').value;
             const deliveryNote = document.getElementById('deliveryNote').value.trim();
@@ -532,7 +533,6 @@
             const grandTotal = foodTotal + deliveryFee + extraStopPrice;
             const isSystemOrder = cart.every(item => item.vendorId === 'fuad' || item.vendorId === 'hala');
 
-            // 1. تجهيز البيانات وحفظها 💾
             const orderData = {
                 region: region.name,
                 items: cart.map(i => `${i.qty}x ${i.name} (${i.vendorName}) {${i.price * i.qty}}`).join(' | ') + (customerPhone ? ` [ت: ${customerPhone}]` : ""),
@@ -540,10 +540,8 @@
                 notes: deliveryNote
             };
             
-            // 🔥 الحفظ في الذاكرة
             localStorage.setItem('pendingOrder', JSON.stringify(orderData));
 
-            // 2. تجهيز رسالة الواتساب
             let msg = "";
             if (isSystemOrder) {
                 msg += `*🔔 مهمة استلام طلب (Pickup)* \n`;
@@ -573,16 +571,13 @@
 
             const whatsappURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
 
-            // 3. فتح الواتساب
             window.location.href = whatsappURL; 
             
-            // احتياطاً: اظهار النافذة اذا كان فاتح من حاسبة
             setTimeout(() => {
                 document.getElementById('confirmSentModal').style.display = 'flex';
             }, 1000);
         }
 
-        // دالة التأكيد النهائية (يضغط عليها الزبون بعد العودة)
         function finalizeOrder() {
             const storedData = localStorage.getItem('pendingOrder');
             
