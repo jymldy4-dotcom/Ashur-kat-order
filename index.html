@@ -145,7 +145,6 @@
         .opt-label { display: flex; gap: 10px; padding: 8px; cursor: pointer; }
         .note-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ccc; margin-bottom: 10px; background: #fff; }
         
-        /* 🆕 ستايل زر الإغلاق (X) */
         .close-icon { 
             position: absolute; top: 15px; left: 15px; 
             background: #eee; width: 30px; height: 30px; 
@@ -283,13 +282,13 @@
         ];
 
         const vendors = [
-            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د' },
-            { id: 'osama', name: 'مطعم ومشويات أسامة', type: 'restaurant', img: 'img/asamh.jpg', time: '40-50 د' },
-            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د' },
-            { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د' },
-            { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د' },
-            { id: 'kinder', name: 'كندر', type: 'refreshments', img: 'img/kn.jpg', time: '15-25 د' },
-            { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د' },
+            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د', open: 16, close: 2 },
+            { id: 'osama', name: 'مطعم ومشويات أسامة', type: 'restaurant', img: 'img/asamh.jpg', time: '40-50 د', open: 8, close: 1 },
+            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د', open: 16, close: 2 },
+            { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د', open: 8, close: 2 }, 
+            { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د', open: 12, close: 2 },
+            { id: 'kinder', name: 'كندر', type: 'refreshments', img: 'img/kn.jpg', time: '15-25 د', open: 12, close: 2 },
+            { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د', open: 16, close: 2 },
         ];
 
         const products = [
@@ -343,6 +342,21 @@
             }
         });
 
+        // دالة فحص الوقت
+        function isOpen(v) {
+            const now = new Date();
+            const h = now.getHours(); // الساعة الحالية
+            
+            // اذا كان وقت الاغلاق (2) أصغر من وقت الفتح (16)، يعني الدوام ليلي
+            if (v.close < v.open) {
+                // مفتوح اذا الساعة أكبر من 16 (4 العصر) أو أصغر من 2 (2 الفجر)
+                return h >= v.open || h < v.close;
+            } else {
+                // دوام نهاري عادي
+                return h >= v.open && h < v.close;
+            }
+        }
+
         function checkPendingOrder() {
             if(localStorage.getItem('pendingOrder')) {
                 document.getElementById('confirmSentModal').style.display = 'flex';
@@ -362,30 +376,61 @@
             const savedIdx = localStorage.getItem('userRegionIdx');
             if(savedIdx !== null) document.getElementById('deliveryArea').value = savedIdx;
         }
+
+        // 🆕 دالة العرض المعدلة: تحول الوقت وتكتب "يفتح الساعة كذا"
         function renderVendors(list) {
             const container = document.getElementById('vendorsGrid');
             container.innerHTML = '';
             list.forEach(v => {
+                const openStatus = isOpen(v); // هل مفتوح؟
+                
+                // ⏰ حساب وقت الفتح بصيغة 12 ساعة (صباحاً/مساءً)
+                let openTimeDisplay = v.open;
+                let ampm = "ص";
+                
+                if (v.open >= 12) {
+                    openTimeDisplay = v.open > 12 ? v.open - 12 : v.open;
+                    ampm = "م";
+                }
+                if (v.open === 0 || v.open === 24) {
+                    openTimeDisplay = 12;
+                    ampm = "ص";
+                }
+
+                // ستايل للمغلق
+                const style = openStatus ? '' : 'filter: grayscale(100%); opacity: 0.8; pointer-events: none;';
+                
+                // النص الي يطلع: يا اما "توصيل" يا اما "يفتح الساعة كذا"
+                const statusText = openStatus ? 
+                    `<span class="v-tag"><i class="fas fa-motorcycle"></i> توصيل</span>` : 
+                    `<span class="v-tag" style="background:#333; color:#fff; font-size:0.75rem;">🔓 يفتح ${openTimeDisplay}:00 ${ampm}</span>`;
+                
                 container.innerHTML += `
-                <div class="vendor-card" onclick="openVendor('${v.id}')">
+                <div class="vendor-card" onclick="openVendor('${v.id}')" style="${style}">
                     <img src="${v.img}" class="v-img">
                     <div class="v-info-overlay">
                         <div class="v-name">${v.name}</div>
                         <div class="v-meta">
                             <span class="v-tag"><i class="fas fa-clock"></i> ${v.time}</span>
-                            <span class="v-tag"><i class="fas fa-motorcycle"></i> توصيل</span>
+                            ${statusText}
                         </div>
                     </div>
                 </div>`;
             });
         }
+
         function filterVendors(type, el) {
             document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
             type === 'all' ? renderVendors(vendors) : renderVendors(vendors.filter(v => v.type === type));
         }
+
         function openVendor(vid) {
             currentVendor = vendors.find(v => v.id === vid);
+            
+            // حماية اضافية: منع الفتح اذا مغلق
+            if (!isOpen(currentVendor)) return alert("عذراً، هذا المطعم مغلق الآن 🌙");
+
             document.getElementById('vendorsGrid').style.display = 'none';
             document.getElementById('mainTabs').style.display = 'none';
             document.getElementById('productsGrid').style.display = 'grid';
@@ -451,7 +496,6 @@
             updateCartUI();
         }
         
-        // 🆕 دالة الإغلاق (X)
         function closeAddModal() {
             document.getElementById('addModal').style.display = 'none';
         }
