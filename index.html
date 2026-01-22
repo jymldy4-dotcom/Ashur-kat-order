@@ -230,7 +230,7 @@
                 <option value="" disabled selected>-- اختر منطقتك --</option>
             </select>
             
-            <input type="tel" id="customerPhone" class="note-input" placeholder="رقم هاتفك (للتواصل عند الضرورة)" style="border: 2px solid var(--accent);">
+            <input type="tel" id="customerPhone" class="note-input" placeholder="رقم هاتفك (مطلوب) 📱" style="border: 2px solid var(--accent);">
 
             <textarea id="deliveryNote" class="note-input" style="height:80px;" placeholder="اكتب أقرب نقطة دالة، لون الباب..."></textarea>
 
@@ -243,33 +243,15 @@
                 <div style="display:flex; justify-content:space-between; margin-top:10px; font-weight:900; font-size:1.2rem; border-top:1px solid #ddd; padding-top:10px; color:var(--royal-blue);"><span>الكلي:</span> <span id="grandTotalDisplay">0</span></div>
             </div>
 
-            <button class="action-btn" style="background:#25D366; margin-top:20px;" onclick="sendToWhatsApp()">
-                <i class="fab fa-whatsapp"></i> إرسال عبر واتساب
+            <button class="action-btn" style="background:#25D366; margin-top:20px;" onclick="checkoutProcess()">
+                <i class="fab fa-whatsapp"></i> تأكيد الطلب عبر واتساب
             </button>
             <button class="action-btn" style="background:#eee; color:#333; margin-top:10px; box-shadow:none;" onclick="closeInvoice()">تعديل الطلب</button>
         </div>
     </div>
     
-    <div class="modal-overlay" id="confirmSentModal" style="z-index: 3000;">
-        <div class="modal-box" style="text-align: center;">
-            <i class="fab fa-whatsapp fa-4x" style="color:#25D366; margin-bottom:15px;"></i>
-            <h3 style="color:var(--text-dark); margin-bottom:10px;">أكمال الطلب</h3>
-            <p style="color:#666; font-size:1rem; margin-bottom:20px;">
-                يرجى الضغط على <b>إرسال</b> في الواتساب، ثم العودة هنا لتأكيد الطلب للمطعم.
-            </p>
-            <div style="display:flex; gap:10px;">
-                <button class="action-btn" onclick="finalizeOrder()" style="background:var(--primary); margin-top:0;">
-                    ✅ تم الإرسال، بلغ المطعم
-                </button>
-                <button class="action-btn" onclick="closeConfirmModal()" style="background:#eee; color:#333; margin-top:0;">
-                    إلغاء
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1elvhQB0-svU-_H5xh2jrWtTfOeRRiCmGdrXo0RAzM32SfsfJ0t5yOeKSvZE29SY6Xg/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNTV--Bzv2KoP7C-uL-w88kBzP4MFRR4kkWWkVGM6wkqJEZj6YnZlleIf0TgyXC_4SRQ/exec';
         const driversPhone = { 'driver1': '9647717324456', 'driver2': '9647717324456', 'default': '9647717324456' };
         const EXTRA_STOP_FEE = 1000;
 
@@ -282,13 +264,13 @@
         ];
 
         const vendors = [
-            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د', open: 15, close: 2 },
+            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د', open: 14, close: 2 },
             { id: 'osama', name: 'مطعم ومشويات أسامة', type: 'restaurant', img: 'img/asamh.jpg', time: '40-50 د', open: 8, close: 1 },
-            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د', open: 16, close: 2 },
-            { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د', open: 8, close: 2 }, 
-            { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د', open: 12, close: 2 },
-            { id: 'kinder', name: 'كندر', type: 'refreshments', img: 'img/kn.jpg', time: '15-25 د', open: 12, close: 2 },
-            { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د', open: 16, close: 2 },
+            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د', open: 14, close: 2 },
+            { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د', open: 8, close: 24 }, 
+            { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د', open: 12, close: 24 },
+            { id: 'kinder', name: 'كندر', type: 'refreshments', img: 'img/kn.jpg', time: '15-25 د', open: 12, close: 24 },
+            { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د', open: 12, close: 2 },
         ];
 
         const products = [
@@ -334,33 +316,19 @@
             renderVendors(vendors);
             populateRegions();
             loadSavedRegion();
-            checkPendingOrder(); 
         };
-
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "visible") {
-                checkPendingOrder();
-            }
-        });
 
         // دالة فحص الوقت
         function isOpen(v) {
             const now = new Date();
             const h = now.getHours(); // الساعة الحالية
             
-            // اذا كان وقت الاغلاق (2) أصغر من وقت الفتح (16)، يعني الدوام ليلي
+            // اذا كان وقت الاغلاق أصغر من وقت الفتح، يعني الدوام ليلي
             if (v.close < v.open) {
-                // مفتوح اذا الساعة أكبر من 16 (4 العصر) أو أصغر من 2 (2 الفجر)
                 return h >= v.open || h < v.close;
             } else {
                 // دوام نهاري عادي
                 return h >= v.open && h < v.close;
-            }
-        }
-
-        function checkPendingOrder() {
-            if(localStorage.getItem('pendingOrder')) {
-                document.getElementById('confirmSentModal').style.display = 'flex';
             }
         }
 
@@ -378,14 +346,14 @@
             if(savedIdx !== null) document.getElementById('deliveryArea').value = savedIdx;
         }
 
-        // 🆕 دالة العرض المعدلة: تحول الوقت وتكتب "يفتح الساعة كذا"
+        // دالة العرض مع تنسيق الوقت الصحيح
         function renderVendors(list) {
             const container = document.getElementById('vendorsGrid');
             container.innerHTML = '';
             list.forEach(v => {
                 const openStatus = isOpen(v); // هل مفتوح؟
                 
-                // ⏰ حساب وقت الفتح بصيغة 12 ساعة (صباحاً/مساءً)
+                // حساب وقت الفتح للعرض
                 let openTimeDisplay = v.open;
                 let ampm = "ص";
                 
@@ -398,10 +366,10 @@
                     ampm = "ص";
                 }
 
-                // ستايل للمغلق
+                // ستايل للمغلق (رمادي)
                 const style = openStatus ? '' : 'filter: grayscale(100%); opacity: 0.8; pointer-events: none;';
                 
-                // النص الي يطلع: يا اما "توصيل" يا اما "يفتح الساعة كذا"
+                // النص: يظهر وقت الفتح اذا مغلق
                 const statusText = openStatus ? 
                     `<span class="v-tag"><i class="fas fa-motorcycle"></i> توصيل</span>` : 
                     `<span class="v-tag" style="background:#333; color:#fff; font-size:0.75rem;">🔓 يفتح ${openTimeDisplay}:00 ${ampm}</span>`;
@@ -429,7 +397,7 @@
         function openVendor(vid) {
             currentVendor = vendors.find(v => v.id === vid);
             
-            // حماية اضافية: منع الفتح اذا مغلق
+            // حماية: منع الفتح اذا مغلق
             if (!isOpen(currentVendor)) return alert("عذراً، هذا المطعم مغلق الآن 🌙");
 
             document.getElementById('vendorsGrid').style.display = 'none';
@@ -558,17 +526,21 @@
             }
         }
 
-        function sendToWhatsApp() {
+        // 🚀 دالة الدفع الجديدة: حفظ بالشيت -> واتساب اوتوماتيك (مع التحقق من الرقم)
+        function checkoutProcess() {
             const areaIndex = document.getElementById('deliveryArea').value;
             const deliveryNote = document.getElementById('deliveryNote').value.trim();
             const customerPhone = document.getElementById('customerPhone') ? document.getElementById('customerPhone').value.trim() : "";
             
-            if (cart.length === 0) return alert("السلة فارغة!");
-            if (areaIndex === "") return alert("اختر منطقتك أولاً");
+            // 1. فحوصات الأمان (🔴 تمت إضافة التحقق من الهاتف)
+            if (cart.length === 0) return alert("السلة فارغة! 🛒");
+            if (areaIndex === "") return alert("يرجى اختيار المنطقة أولاً 📍");
+            if (customerPhone === "") return alert("عيني بلا زحمة، اكتب رقمك حتى يكدر السايق يخابرك! 📱");
 
             const region = deliveryRegions[areaIndex];
             const targetPhone = driversPhone[region.driver_key] || driversPhone['default'];
             
+            // 2. الحسابات
             const foodTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             const uniqueVendors = new Set(cart.map(item => item.vendorId));
             let extraStopPrice = 0;
@@ -578,79 +550,73 @@
             const grandTotal = foodTotal + deliveryFee + extraStopPrice;
             const isSystemOrder = cart.every(item => item.vendorId === 'fuad' || item.vendorId === 'hala');
 
+            // 3. تغيير نص الزر
+            const btn = document.querySelector('#invoiceModal .action-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ جاري إرسال الطلب...';
+            btn.disabled = true;
+
+            // 4. تجهيز البيانات للشيت
             const orderData = {
                 region: region.name,
                 items: cart.map(i => `${i.qty}x ${i.name} (${i.vendorName}) {${i.price * i.qty}}`).join(' | ') + (customerPhone ? ` [ت: ${customerPhone}]` : ""),
                 total: grandTotal,
-                notes: deliveryNote
+                notes: deliveryNote,
+                date: new Date().toLocaleString('en-GB') 
             };
-            
-            localStorage.setItem('pendingOrder', JSON.stringify(orderData));
 
-            let msg = "";
-            if (isSystemOrder) {
-                msg += `*🔔 مهمة استلام طلب (Pickup)* \n`;
-                msg += `🚨 *كابتن:* الطلب واصل للمطعم عالسيستم.\n`;
-                msg += `*بس روح استلم ووصل.*\n\n`;
-            } else {
-                msg += `*🚀 طلب جديد - شراء وتوصيل* \n`;
-            }
+            // 5. الحفظ في Google Sheet أولاً
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(orderData)
+            }).then(() => {
+                // 6. تجهيز رسالة الواتساب
+                let msg = "";
+                if (isSystemOrder) {
+                    msg += `*🔔 مهمة استلام طلب (Pickup)* \n`;
+                    msg += `🚨 *كابتن:* الطلب واصل للمطعم عالسيستم.\n`;
+                    msg += `*بس روح استلم ووصل.*\n\n`;
+                } else {
+                    msg += `*🚀 طلب جديد - شراء وتوصيل* \n`;
+                }
 
-            msg += `*📍 المنطقة:* ${region.name}\n`;
-            if(customerPhone) msg += `📞 *هاتف الزبون:* ${customerPhone}\n`;
-            if(deliveryNote) msg += `📝 *ملاحظة:* ${deliveryNote}\n`;
-            msg += `---------------------------\n`;
-            
-            cart.forEach(item => {
-                const notes = item.notes.length ? ` (${item.notes.join('، ')})` : '';
-                msg += `▪️ ${item.qty}x ${item.name} [${item.vendorName}] ${notes}\n`;
-            });
-
-            msg += `---------------------------\n`;
-            msg += `💰 *السعر الكلي (واصل):* ${grandTotal.toLocaleString()} د.ع\n`;
-            let details = `(أكل: ${foodTotal} + توصيل: ${deliveryFee}`;
-            if(extraStopPrice > 0) details += ` + محطات: ${extraStopPrice}`;
-            details += `)`;
-            msg += `${details}\n`;
-            msg += `📍 *الموقع:* (يرجى إرسال اللوكيشن)`;
-
-            const whatsappURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
-
-            window.location.href = whatsappURL; 
-            
-            setTimeout(() => {
-                document.getElementById('confirmSentModal').style.display = 'flex';
-            }, 1000);
-        }
-
-        function finalizeOrder() {
-            const storedData = localStorage.getItem('pendingOrder');
-            
-            if(storedData && GOOGLE_SCRIPT_URL) {
-                const dataToSend = JSON.parse(storedData);
+                msg += `*📍 المنطقة:* ${region.name}\n`;
+                if(customerPhone) msg += `📞 *هاتف الزبون:* ${customerPhone}\n`;
+                if(deliveryNote) msg += `📝 *ملاحظة:* ${deliveryNote}\n`;
+                msg += `---------------------------\n`;
                 
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(dataToSend)
-                }).then(() => console.log("Sent to sheet"))
-                  .catch(e => console.log("Error", e));
-                  
-                localStorage.removeItem('pendingOrder');
-                
-                document.getElementById('confirmSentModal').style.display = 'none';
-                closeInvoice();
+                cart.forEach(item => {
+                    const notes = item.notes.length ? ` (${item.notes.join('، ')})` : '';
+                    msg += `▪️ ${item.qty}x ${item.name} [${item.vendorName}] ${notes}\n`;
+                });
+
+                msg += `---------------------------\n`;
+                msg += `💰 *السعر الكلي (واصل):* ${grandTotal.toLocaleString()} د.ع\n`;
+                let details = `(أكل: ${foodTotal} + توصيل: ${deliveryFee}`;
+                if(extraStopPrice > 0) details += ` + محطات: ${extraStopPrice}`;
+                details += `)`;
+                msg += `${details}\n`;
+                msg += `📍 *الموقع:* (يرجى إرسال اللوكيشن)`;
+
+                const whatsappURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
+
+                // 7. تنظيف وإغلاق
                 cart = [];
                 updateCartUI();
-                alert("✅ تم إبلاغ المطعم بطلبك!");
-            } else {
-                document.getElementById('confirmSentModal').style.display = 'none';
-            }
-        }
+                closeInvoice();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // 8. تحويل للواتساب
+                window.location.href = whatsappURL;
 
-        function closeConfirmModal() {
-            document.getElementById('confirmSentModal').style.display = 'none';
+            }).catch(e => {
+                alert("حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
         }
         
         window.onclick = (e) => { 
@@ -661,5 +627,3 @@
     </script>
 </body>
 </html>
-
-
