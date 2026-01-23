@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-   <head>
-    <link rel="icon" type="image/png" sizes="192x192" href="https://g.top4top.io/p_3675dkquj1.png?v=android_fix">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://g.top4top.io/p_3675dkquj1.png?v=android_fix">
-    
-    <link rel="apple-touch-icon" href="https://g.top4top.io/p_3675dkquj1.png?v=android_fix">
+    <head>
+     <link rel="icon" type="image/png" sizes="192x192" href="https://g.top4top.io/p_3675dkquj1.png?v=android_fix">
+     <link rel="icon" type="image/png" sizes="32x32" href="https://g.top4top.io/p_3675dkquj1.png?v=android_fix">
+     
+     <link rel="apple-touch-icon" href="https://g.top4top.io/p_3675dkquj1.png?v=android_fix">
 
     </head> 
     </head>
@@ -256,14 +256,16 @@
             </div>
 
             <button class="action-btn" style="background:#25D366; margin-top:20px;" onclick="checkoutProcess()">
-                <i class="fab fa-whatsapp"></i> تأكيد الطلب عبر واتساب
+                <i class="fab fa-whatsapp"></i> تأكيد الطلب
             </button>
             <button class="action-btn" style="background:#eee; color:#333; margin-top:10px; box-shadow:none;" onclick="closeInvoice()">تعديل الطلب</button>
         </div>
     </div>
     
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNTV--Bzv2KoP7C-uL-w88kBzP4MFRR4kkWWkVGM6wkqJEZj6YnZlleIf0TgyXC_4SRQ/exec';
+        // 🔴🔴🔴 تأكد أن هذا الرابط هو رابط السكربت الأخير اللي سويتله New Version
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIsdWKNjvCzqTrUKY-BQU1OsAaJbBG4z027mGn2zsdru5HqjSzHwL2fY8D0rhCDwkoNg/exec';
+        
         const driversPhone = { 'driver1': '9647717324456', 'driver2': '9647717324456', 'default': '9647717324456' };
         const EXTRA_STOP_FEE = 1000;
 
@@ -286,6 +288,15 @@
         ];
 
         const products = [
+            // 💥 هذا كود العرض
+            { 
+                id: 999, // رقم مميز
+                vid: 'fuad', // تابع ليا مطعم؟ (مثلاً fuad)
+                name: '🔥 عرض التوفير (برجر + ببسي)', // اسم العرض
+                price: 5000, // سعر العرض
+                isHot: true, // خليه true حتى تطلع عليه علامة "نار"
+                img: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500' // صورة مغرية
+            },
             { id: 55, vid: 'spicy', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
             { id: 56, vid: 'spicy', name: 'شاورما دجاج', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
             { id: 57, vid: 'spicy', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
@@ -296,7 +307,7 @@
             { id: 3, vid: 'fuad', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
             { id: 4, vid: 'fuad', name: 'ريزو دجاج', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500' },
             { id: 5, vid: 'fuad', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
-            { id: 34,vid:'fuad', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
+            { id: 34,vid:'fuad',  name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
             { id: 10, vid: 'osama', name: 'نفر كباب', price: 10000, isHot: true, img: 'img/kabab.jpg' },
             { id: 11, vid: 'osama', name: 'دجاجة فحم', price: 14000, isHot: false, img: 'img/djaj.jpg' },
             { id: 12, vid: 'osama', name: 'تكة لحم', price: 12000, isHot: false, img: 'img/tkh.jpg' },
@@ -538,102 +549,73 @@
             }
         }
 
-        // 🚀 دالة الدفع الجديدة: حفظ بالشيت -> واتساب اوتوماتيك (مع التحقق من الرقم)
+        // 🚀 دالة الدفع المعدلة (هنا صار السحر)
         function checkoutProcess() {
             const areaIndex = document.getElementById('deliveryArea').value;
             const deliveryNote = document.getElementById('deliveryNote').value.trim();
-            const customerPhone = document.getElementById('customerPhone') ? document.getElementById('customerPhone').value.trim() : "";
+            const customerPhone = document.getElementById('customerPhone').value.trim();
             
-            // 1. فحوصات الأمان (🔴 تمت إضافة التحقق من الهاتف)
             if (cart.length === 0) return alert("السلة فارغة! 🛒");
             if (areaIndex === "") return alert("يرجى اختيار المنطقة أولاً 📍");
             if (customerPhone === "") return alert("عيني بلا زحمة، اكتب رقمك حتى يكدر السايق يخابرك! 📱");
 
             const region = deliveryRegions[areaIndex];
-            const targetPhone = driversPhone[region.driver_key] || driversPhone['default'];
             
-            // 2. الحسابات
+            // حسابات السعر
             const foodTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             const uniqueVendors = new Set(cart.map(item => item.vendorId));
-            let extraStopPrice = 0;
-            if (uniqueVendors.size > 1) extraStopPrice = (uniqueVendors.size - 1) * EXTRA_STOP_FEE;
-            
-            const deliveryFee = region.price;
-            const grandTotal = foodTotal + deliveryFee + extraStopPrice;
-            const isSystemOrder = cart.every(item => item.vendorId === 'fuad' || item.vendorId === 'hala');
+            const extraStopPrice = (uniqueVendors.size > 1) ? (uniqueVendors.size - 1) * EXTRA_STOP_FEE : 0;
+            const grandTotal = foodTotal + region.price + extraStopPrice;
 
-            // 3. تغيير نص الزر
+            // تغيير زر الإرسال
             const btn = document.querySelector('#invoiceModal .action-btn');
             const originalText = btn.innerHTML;
             btn.innerHTML = '⏳ جاري إرسال الطلب...';
             btn.disabled = true;
 
-            // 4. تجهيز البيانات للشيت
+            // ⚡ تجهيز البيانات بالأسماء الصحيحة للسكربت
             const orderData = {
-                secret_key: "Ashur123456", // 🔐 تم إضافة المفتاح السري هنا
-                region: region.name,
-                items: cart.map(i => `${i.qty}x ${i.name} (${i.vendorName}) {${i.price * i.qty}}`).join(' | ') + (customerPhone ? ` [ت: ${customerPhone}]` : ""),
-                total: grandTotal,
-                notes: deliveryNote,
-                date: new Date().toLocaleString('en-GB') 
+                secret_key: "Ashur123456",
+                customer_name: "زبون آشور كات", // اسم افتراضي لأن ماكو حقل اسم
+                customer_phone: customerPhone,
+                customer_area: region.name,
+                order_details: cart.map(i => `${i.qty}x ${i.name} (${i.vendorName})`).join('، '),
+                total_price: grandTotal.toLocaleString() + " د.ع",
+                notes: deliveryNote || "لا توجد",
+                order_id: "#" + Math.floor(Math.random() * 1000000)
             };
 
-            // 5. الحفظ في Google Sheet أولاً
+            // الإرسال
             fetch(GOOGLE_SCRIPT_URL, {
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(orderData)
             }).then(() => {
-                // 6. تجهيز رسالة الواتساب
-                let msg = "";
-                if (isSystemOrder) {
-                    msg += `*🔔 مهمة استلام طلب (Pickup)* \n`;
-                    msg += `🚨 *كابتن:* الطلب واصل للمطعم عالسيستم.\n`;
-                    msg += `*بس روح استلم ووصل.*\n\n`;
-                } else {
-                    msg += `*🚀 طلب جديد - شراء وتوصيل* \n`;
-                }
-
-                msg += `*📍 المنطقة:* ${region.name}\n`;
-                if(customerPhone) msg += `📞 *هاتف الزبون:* ${customerPhone}\n`;
-                if(deliveryNote) msg += `📝 *ملاحظة:* ${deliveryNote}\n`;
+                // تحويل للواتساب بعد نجاح الإرسال
+                let msg = `*🚀 طلب جديد من آشور كات*\n`;
+                msg += `📍 *المنطقة:* ${region.name}\n📞 *هاتف:* ${customerPhone}\n`;
                 msg += `---------------------------\n`;
+                cart.forEach(i => msg += `▪️ ${i.qty}x ${i.name} [${i.vendorName}]\n`);
+                msg += `---------------------------\n💰 *الكلي:* ${grandTotal.toLocaleString()} د.ع`;
                 
-                cart.forEach(item => {
-                    const notes = item.notes.length ? ` (${item.notes.join('، ')})` : '';
-                    msg += `▪️ ${item.qty}x ${item.name} [${item.vendorName}] ${notes}\n`;
-                });
-
-                msg += `---------------------------\n`;
-                msg += `💰 *السعر الكلي (واصل):* ${grandTotal.toLocaleString()} د.ع\n`;
-                let details = `(أكل: ${foodTotal} + توصيل: ${deliveryFee}`;
-                if(extraStopPrice > 0) details += ` + محطات: ${extraStopPrice}`;
-                details += `)`;
-                msg += `${details}\n`;
-                msg += `📍 *الموقع:* (يرجى إرسال اللوكيشن)`;
-
-                const whatsappURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
-
-                // 7. تنظيف وإغلاق
+                const targetPhone = driversPhone[region.driver_key] || driversPhone['default'];
+                window.location.href = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
+                
+                // تنظيف
                 cart = [];
                 updateCartUI();
                 closeInvoice();
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-                
-                // 8. تحويل للواتساب
-                window.location.href = whatsappURL;
-
             }).catch(e => {
-                alert("حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.");
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                alert("حدث خطأ بسيط، سيتم تحويلك للواتساب مباشرة.");
+                window.location.href = `https://wa.me/9647717324456`; // رقم احتياطي
             });
         }
         
         window.onclick = (e) => { 
-            if(e.target.className === 'modal-overlay' && e.target.id !== 'confirmSentModal') {
+            if(e.target.className === 'modal-overlay') {
                 e.target.style.display = 'none';
             }
         }
