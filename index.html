@@ -20,6 +20,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* تصميم القائمة النصية (بدون صور) */
+.simple-list-item {
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+.simple-name { font-weight: bold; font-size: 1rem; color: #2d3436; }
+.simple-price { color: #8b2e18; font-weight: bold; }
+.simple-add-btn {
+    background: #27ae60; color: white; border: none;
+    width: 30px; height: 30px; border-radius: 50%;
+    font-size: 1.2rem; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+}
         :root {
             /* 🎨 باليت الألوان السومرية */
             --primary: #8b2e18;   /* أحمر قرميدي */
@@ -278,18 +298,25 @@
         ];
 
         const vendors = [
-            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د', open: 14, close: 2 },
+            { id: 'jwwelry al athraa', name: 'مجوهرات العذراء', type: 'supermarket', img: 'img/ath.jpg', time: '30-45 د', open: 9, close: 1 },
+            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د', open: 14, close: 5},
             { id: 'osama', name: 'مطعم ومشويات أسامة', type: 'restaurant', img: 'img/asamh.jpg', time: '40-50 د', open: 8, close: 1 },
-            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د', open: 14, close: 2 },
+            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د', open: 14, close: 5 },
             { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د', open: 8, close: 24 }, 
-            { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د', open: 12, close: 24 },
-            { id: 'kinder', name: 'كندر', type: 'refreshments', img: 'img/kn.jpg', time: '15-25 د', open: 12, close: 24 },
+            { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د', open: 12, close: 5 },
+            { id: 'baghdad', name: 'سنتر بغداد للجليب', type: 'refreshments', img: 'img/baghdad.jpg', time: '25-40 د', open: 9, close: 1},
             { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د', open: 12, close: 2 },
+            { id: 'tarbush', name: 'طربوش', type: 'restaurant', img: 'img/tarbush.jpg', time: '25-40 د', open: 12, close: 5 },
+            { id: 'samer', name: 'سامر الشهير', type: 'restaurant', img: 'img/samer.jpg', time: '25-40 د', open: 12, close: 2 },
+            { id: 'hikaea', name: 'مطعم حكاية', type: 'restaurant', img: 'img/m1.jpg', time: '30-45 د', open: 9, close: 1 },
+            
         ];
 
         const products = [
+            
             // 💥 هذا كود العرض
             { 
+                
                 id: 999, // رقم مميز
                 vid: 'fuad', // تابع ليا مطعم؟ (مثلاً fuad)
                 name: '🔥 عرض التوفير (برجر + ببسي)', // اسم العرض
@@ -297,37 +324,123 @@
                 isHot: true, // خليه true حتى تطلع عليه علامة "نار"
                 img: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500' // صورة مغرية
             },
+        
+            // --- العروض والسبايسي ---
             { id: 55, vid: 'spicy', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
             { id: 56, vid: 'spicy', name: 'شاورما دجاج', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
             { id: 57, vid: 'spicy', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
             { id: 58, vid: 'spicy', name: 'ريزو دجاج', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500' },
             { id: 59, vid: 'spicy', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
+            
+            // --- مطعم فؤاد ---
             { id: 1, vid: 'fuad', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
             { id: 2, vid: 'fuad', name: 'شاورما دجاج', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
             { id: 3, vid: 'fuad', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
             { id: 4, vid: 'fuad', name: 'ريزو دجاج', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500' },
             { id: 5, vid: 'fuad', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
-            { id: 34,vid:'fuad',  name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
+            { id: 34, vid: 'fuad', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
+            
+            // --- مطعم أسامة ---
             { id: 10, vid: 'osama', name: 'نفر كباب', price: 10000, isHot: true, img: 'img/kabab.jpg' },
             { id: 11, vid: 'osama', name: 'دجاجة فحم', price: 14000, isHot: false, img: 'img/djaj.jpg' },
             { id: 12, vid: 'osama', name: 'تكة لحم', price: 12000, isHot: false, img: 'img/tkh.jpg' },
+            
+            // --- هلا فود ---
             { id: 50, vid: 'hala', name: 'سندويج كرسبي', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=500' },
             { id: 51, vid: 'hala', name: 'سندويج إسكالوب', price: 4500, isHot: false, img: 'https://images.unsplash.com/photo-1536521642388-441263f88a61?w=500' },
             { id: 52, vid: 'hala', name: 'ساندويش فاهيتا', price: 4500, isHot: false, img: 'img/faheta.jpg' },
             { id: 53, vid: 'hala', name: 'بيتزا دجاج', price: 7500, isHot: false, img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500' },
             { id: 54, vid: 'hala', name: 'تشيكن سبايسي', price: 6000, isHot: false, img: 'https://images.unsplash.com/photo-1615557960916-5f4791effe9d?w=500' },
             { id: 34, vid: 'hala', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
+            
+            // --- سوبر ماركت زياد ---
             { id: 20, vid: 'ziad', name: 'زيت (1 لتر)', price: 2250, isHot: false, img: 'img/tunsa.jpg' },
             { id: 21, vid: 'ziad', name: 'شاي (500غ)', price: 4000, isHot: false, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500' },
             { id: 22, vid: 'ziad', name: 'نوتيلا وسط', price: 5000, isHot: false, img: 'img/nu.jpg' },
             { id: 23, vid: 'ziad', name: 'تمن عنبر (كيلو)', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500' },
-            { id: 34, vid: 'ziad', name: 'بيبسي', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
-            { id: 30, vid: 'blue', name: 'عصير برتقال', price: 3000, isHot: false, img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500' },
-            { id: 31, vid: 'blue', name: 'كوكتيل بلو بيري', price: 4000, isHot: true, img: 'img/koktel.jpg' },
-            { id: 40, vid: 'kinder', name: 'آيس كريم كندر', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=500' },
-            { id: 41, vid: 'kinder', name: 'وافل نوتيلا', price: 4000, isHot: false, img: 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=500' },
-            { id: 42, vid: 'kinder', name: 'كريب نوتيلا', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=500' },
-            { id: 43, vid: 'kinder', name: 'كريب مشكل', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=500' },
+            { id: 34, vid: 'ziad', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
+            
+            // --- مرطبات بلو ---
+            { id: 119, vid: 'blue', sub: 'juice', name: 'عصير موز', price: 1000 },
+            { id: 120, vid: 'blue', sub: 'juice', name: 'عصير برتقال', price: 3000 },
+            { id: 121, vid: 'blue', sub: 'crepe', name: 'كريب نوتيلا', price: 5000 },
+            { id: 122, vid: 'blue', sub: 'ice',   name: 'آيس كريم توت', price: 2500 },
+            { id: 123, vid: 'blue', sub: 'ice',   name: 'آيس كريم فراولة', price: 2500 },
+
+            // --- مرطبات بغداد ---
+            { id: 40, vid: 'baghdad', name: 'آيس كريم كندر', price: 2000, isHot: false, img: '' },
+            { id: 41, vid: 'baghdad', name: 'وافل نوتيلا', price: 4000, isHot: false, img: '' },
+            { id: 42, vid: 'baghdad', name: 'كريب نوتيلا', price: 5000, isHot: false, img: '' },
+            { id: 43, vid: 'baghdad', name: 'كريب مشكل', price: 5000, isHot: false, img: '' },
+            
+            // --- مطعم طربوش ---
+            { id: 60, vid: 'tarbush', name: 'فلافل حجري', price: 750, isHot: false, img: 'img/fl.jpg' },
+            { id: 61, vid: 'tarbush', name: 'صاج فلافل', price: 1000, isHot: false, img: 'img/f.jpg' },
+            { id: 62, vid: 'tarbush', name: 'ماعون فلافل', price: 1000, isHot: false, img: 'img/mf.jpg' },
+            { id: 63, vid: 'tarbush', name: 'لفة كص حجري', price: 1000, isHot: false, img: 'img/ka.jpg' },
+            { id: 64, vid: 'tarbush', name: 'صاج شاورما سوري', price: 1500, isHot: false, img: 'img/shaorma.jpg' },
+            { id: 65, vid: 'tarbush', name: 'كلاص فنكر', price: 1000, isHot: false, img: 'img/fnkr.jpg' },
+            { id: 66, vid: 'tarbush', name: 'فنكر دبل', price: 2000, isHot: false, img: 'img/fnd.jpg' },
+            { id: 67, vid: 'tarbush', name: 'برجر لحم عراقي', price: 3000, isHot: false, img: 'img/brjr.jpg' },
+            { id: 68, vid: 'tarbush', name: 'برجر دجاج', price: 2500, isHot: false, img: 'img/brjrd.jpg' },
+            { id: 69, vid: 'tarbush', name: 'ريزو طربوش', price: 5000, isHot: false, img: 'img/rezo.jpg' },
+            { id: 70, vid: 'tarbush', name: 'سكالوب دجاج', price: 2500, isHot: false, img: 'img/skalob.jpg' },
+            { id: 71, vid: 'tarbush', name: 'فاهيتا دجاج', price: 2500, isHot: false, img: 'img/faheta.jpg' },
+            { id: 72, vid: 'tarbush', name: 'زنكر دجاج', price: 2500, isHot: false, img: 'img/zngr.jpg' },
+            { id: 73, vid: 'tarbush', name: 'وجبة طربوش فلافل', price: 7000, isHot: false, img: 'img/ogba.jpg' },
+            { id: 74, vid: 'tarbush', name: 'وجبة شاورما عربي وسط', price: 7000, isHot: false, img: 'img/ogbashaorma.jpg' },
+            { id: 96, vid: 'tarbush', name: 'وجبة شاورما عربي', price: 3500, isHot: false, img: 'img/ogbashaorma.jpg' },
+            { id: 75, vid: 'tarbush', name: 'وجبة شاورما عربي كبير', price: 10000, isHot: false, img: 'img/ogbashaorma.jpg' },
+            { id: 75, vid: 'tarbush', name: 'نفر شاورما', price: 4000, isHot: false, img: 'img/nfrsh.jpg' },
+            { id: 76, vid: 'tarbush', name: 'نص كيلو شاورما', price: 9000, isHot: false, img: 'img/nsk.jpg' },
+            { id: 77, vid: 'tarbush', name: 'كيلو شاورما', price: 18000, isHot: false, img: 'img/keloshao.jpg' },
+            { id: 78, vid: 'tarbush', name: 'وجبة زنكر 4 قطع', price: 5000, isHot: false, img: 'img/z4.jpg' },
+            { id: 79, vid: 'tarbush', name: 'وجبة زنكر 8 قطع', price: 10000, isHot: false, img: 'img/z8.jpg' },
+            { id: 80, vid: 'tarbush', name: 'بيتزا دجاج كبير', price: 8000, isHot: false, img: 'img/betza.jpg' },
+            { id: 81, vid: 'tarbush', name: 'بيتزا دجاج وسط', price: 5000, isHot: false, img: 'img/betzao.jpg' },
+            { id: 82, vid: 'tarbush', name: 'صاج ايطالي', price: 5000, isHot: false, img: 'img/saja.jpg' },
+            { id: 83, vid: 'tarbush', name: 'كنتاكي 3 قطع', price: 5000, isHot: false, img: 'img/kntake3.jpg' },
+            { id: 84, vid: 'tarbush', name: 'كنتاكي 5 قطع', price: 8000, isHot: false, img: 'img/kntake5.jpg' },
+            { id: 85, vid: 'tarbush', name: 'كنتاكي 8 قطع', price: 12000, isHot: false, img: 'img/kntake8.jpg' },
+            { id: 86, vid: 'tarbush', name: 'ماعون مقبلات', price: 2000, isHot: false, img: 'img/mk.jpg' },
+            { id: 87, vid: 'tarbush', name: 'حمص بطحينة', price: 1500, isHot: false, img: 'img/hms.jpg' },
+            { id: 88, vid: 'tarbush', name: 'مسبحة شامية', price: 1500, isHot: false, img: 'img/msbha.jpg' },
+            { id: 89, vid: 'tarbush', name: 'صلصة عسلية', price: 500, isHot: false, img: 'img/asl.jpg' },
+            { id: 90, vid: 'tarbush', name: 'صلصة حارة', price: 500, isHot: false, img: 'img/hot.jpg' },
+            { id: 91, vid: 'tarbush', name: 'ثومية', price: 500, isHot: false, img: 'img/tho.jpg' },
+            { id: 92, vid: 'tarbush', name: 'ببسي عائلي', price: 1500, isHot: false, img: 'img/pepsil.jpg' },
+            { id: 93, vid: 'tarbush', name: 'ببسي', price: 500, isHot: false, img: 'img/pepsi.jpg' },
+            { id: 94, vid: 'tarbush', name: 'سفن', price: 500, isHot: false, img: 'img/sfn.jpg' },
+            { id: 95, vid: 'tarbush', name: 'ماء', price: 250, isHot: false, img: 'img/aqua.jpg' },
+            
+            // --- مطعم سامر ---
+            { id: 97, vid: 'samer', name: 'مندي دجاج', price: 12000, isHot: false, img: 'img/mdjaj.jpg' },
+            { id: 98, vid: 'samer', name: 'مندي لحم', price: 15000, isHot: false, img: 'img/aqua.jpg' },
+            { id: 99, vid: 'samer', name: 'منسف دجاج', price: 15000, isHot: false, img: 'img/samer.jpg' },
+            { id: 100, vid: 'samer', name: 'منسف دجاج ولحم', price: 30000, isHot: false, img: 'img/mlhm.jpg' },
+            { id: 101, vid: 'samer', name: 'مندي نصف دجاجة', price: 7000, isHot: false, img: 'img/aqua.jpg' },
+            
+            // --- حكاية ---
+            { id: 102, vid: 'hikaea', name: 'دجاجة محشية', price: 10000, isHot: true, img: 'img/d1.jpg' },
+            { id: 103, vid: 'hikaea', name: 'دجاجة فحم', price: 10000, isHot: false, img: 'img/dsh.jpg' },
+            { id: 104, vid: 'hikaea', name: 'دجاج سادة', price: 7000, isHot: false, img: 'img/a.jpg' },
+            { id: 105, vid: 'hikaea', name: 'نفر تمن ومرك', price: 2000, isHot: false, img: 'img/tmn.jpg' },
+            { id: 106, vid: 'hikaea', name: 'لفة كص دجاج', price: 750, isHot: false, img: 'img/ka.jpg' },
+            { id: 107, vid: 'hikaea', name: 'كيلو كباب لحم', price: 18000, isHot: false, img: 'img/kabab.jpg' },
+            { id: 108, vid: 'hikaea', name: 'كيلو كباب دجاج', price: 7000, isHot: false, img: 'img/kd.jpg' },
+            { id: 116, vid: 'hikaea', name: 'نص كيلو كباب لحم', price: 9000, isHot: false, img: 'img/kabab.jpg' },
+            { id: 117, vid: 'hikaea', name: 'نص كيلو كباب دجاج', price: 3500, isHot: false, img: 'img/kd.jpg' },
+            { id: 109, vid: 'hikaea', name: 'شيش تكة لحم', price: 2000, isHot: false, img: 'img/tlhm.jpg' },
+            { id: 110, vid: 'hikaea', name: 'شيش معلاك', price: 2000, isHot: false, img: 'img/m0.jpg' },
+            { id: 111, vid: 'hikaea', name: 'شيش جلاوي', price: 2000, isHot: false, img: 'img/h.jpg' },
+            { id: 112, vid: 'hikaea', name: 'شيش اجنحة', price: 2000, isHot: false, img: 'img/tkhd.jpg' },
+            { id: 113, vid: 'hikaea', name: 'شيش تكة دجاج', price: 1500, isHot: false, img: 'img/td.jpg' },
+            { id: 114, vid: 'hikaea', name: 'شيش ألية', price: 2000, isHot: false, img: 'img/shahm.jpg' },
+            { id: 115, vid: 'hikaea', name: 'ببسي', price: 500, isHot: false, img: 'img/pepsi.jpg' },
+            
+            // --- مجوهرات العذراء ---
+            { id: 116, vid: 'jwwelry al athraa', name: 'ساعة+سوار فان كليف', price: 15000, isHot: false, img: 'img/s1.jpg' }
+        
         ];
 
         let cart = [];
@@ -417,19 +530,102 @@
             type === 'all' ? renderVendors(vendors) : renderVendors(vendors.filter(v => v.type === type));
         }
 
+       // 1️⃣ دالة فتح المطعم أو المحل
         function openVendor(vid) {
             currentVendor = vendors.find(v => v.id === vid);
-            
-            // حماية: منع الفتح اذا مغلق
-            if (!isOpen(currentVendor)) return alert("عذراً، هذا المطعم مغلق الآن 🌙");
+            if (!isOpen(currentVendor)) return alert("عذراً، هذا القسم مغلق الآن 🌙");
 
+            // 🛑 هنا التعديل الخاص لـ بلو بيري
+            if (vid === 'blue') {
+                showBlueberryCategories(); // دالة خاصة بس لبلو بيري
+                return;
+            }
+
+            // الكود الطبيعي لباقي المطاعم
+            setupProductView();
+            const grid = document.getElementById('productsGrid');
+            products.filter(p => p.vid === vid).forEach(p => renderProductCard(p, grid));
+        }
+
+        // 3️⃣ دالة تعرض المنتجات "كتابة فقط" (لستة)
+function showSubList(subType, title) {
+            const grid = document.getElementById('productsGrid');
+            
+            // ✅✅ السحر هنا: غيرنا وظيفة زر الرجوع الفوق
+            const backBtn = document.getElementById('backBtn');
+            backBtn.setAttribute('onclick', 'showBlueberryCategories()'); // يرجع للأقسام
+            backBtn.innerHTML = 'رجوع للأقسام <i class="fas fa-arrow-right"></i>';
+
+            grid.innerHTML = `<h3 style="grid-column:1/-1; color:var(--primary); margin-bottom:10px;">${title}</h3>`;
+            
+            const subProducts = products.filter(p => p.vid === 'blue' && p.sub === subType);
+
+            if(subProducts.length === 0) {
+                grid.innerHTML += '<p style="text-align:center;">لا توجد مواد 😴</p>';
+                return;
+            }
+
+            subProducts.forEach(p => {
+                grid.innerHTML += `
+                    <div class="simple-list-item" style="grid-column: 1/-1;">
+                        <div class="simple-name">${p.name}</div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div class="simple-price">${p.price.toLocaleString()}</div>
+                            <button class="simple-add-btn" onclick="openAddModal(${p.id})">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+function showBlueberryCategories() {
+            setupProductView(); 
+            
+            // ✅ تعديل مهم: زر الرجوع هنا يودي للرئيسية
+            const backBtn = document.getElementById('backBtn');
+            backBtn.setAttribute('onclick', 'showHome()'); 
+            backBtn.innerHTML = 'القائمة الرئيسية <i class="fas fa-home"></i>';
+
+            const grid = document.getElementById('productsGrid');
+            document.getElementById('searchInput').placeholder = "ابحث داخل بلو بيري...";
+            
+            // الكارتات
+            grid.innerHTML = `
+                <div class="vendor-card" onclick="showSubList('juice', '🥤 قائمة العصائر')" style="height:150px;">
+                    <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">🥤 العصائر الطبيعية</div></div>
+                </div>
+
+                <div class="vendor-card" onclick="showSubList('crepe', '🥞 كريبات بلو بيري')" style="height:150px;">
+                    <img src="img/kreb.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">🥞 كريبات بلو بيري</div></div>
+                </div>
+
+                <div class="vendor-card" onclick="showSubList('ice', '🍦 آيس كريم')" style="height:150px;">
+                    <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">🍦 آيس كريم </div></div>
+                </div>
+            `;
+        }
+        function showHome() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchInput').placeholder = "شنو مشتهي اليوم؟ (برجر، بيتزا...)";
+            
+            document.getElementById('productsGrid').style.display = 'none';
+            document.getElementById('vendorsGrid').style.display = 'grid';
+            document.getElementById('mainTabs').style.display = 'block';
+            
+            // نخفي زر الرجوع بالرئيسية
+            const backBtn = document.getElementById('backBtn');
+            backBtn.style.display = 'none';
+            backBtn.setAttribute('onclick', 'showHome()'); // احتياط
+        }
+        // دالة مساعدة لتجهيز الواجهة (حتى لا نكرر الكود)
+        function setupProductView() {
             document.getElementById('vendorsGrid').style.display = 'none';
             document.getElementById('mainTabs').style.display = 'none';
             document.getElementById('productsGrid').style.display = 'grid';
             document.getElementById('backBtn').style.display = 'block';
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            products.filter(p => p.vid === vid).forEach(p => renderProductCard(p, grid));
+            document.getElementById('productsGrid').innerHTML = '';
         }
         function renderProductCard(p, container) {
             container.innerHTML += `
@@ -548,71 +744,89 @@
                 document.getElementById('grandTotalDisplay').innerText = foodTotal.toLocaleString() + " د.ع";
             }
         }
+        // 🚀 دالة الدفع المعدلة 
+function checkoutProcess() {
+    const areaIndex = document.getElementById('deliveryArea').value;
+    const deliveryNote = document.getElementById('deliveryNote').value.trim();
+    const phoneInput = document.getElementById('customerPhone').value.trim();
+    
+    // 🛑 فحوصات الأمان
+    if (cart.length === 0) return alert("السلة فارغة! 🛒");
+    if (areaIndex === "") return alert("يرجى اختيار المنطقة أولاً 📍");
+    if (phoneInput === "") return alert("عيني بلا زحمة، اكتب رقمك حتى يكدر السايق يخابرك , بالمناسبة اذا مادزيت الرسالة للواتساب مو معناها ماطلبت ترى تم الطلب وطلبك قيد الانشاء! 📱");
 
-        // 🚀 دالة الدفع المعدلة (هنا صار السحر)
-        function checkoutProcess() {
-            const areaIndex = document.getElementById('deliveryArea').value;
-            const deliveryNote = document.getElementById('deliveryNote').value.trim();
-            const customerPhone = document.getElementById('customerPhone').value.trim();
-            
-            if (cart.length === 0) return alert("السلة فارغة! 🛒");
-            if (areaIndex === "") return alert("يرجى اختيار المنطقة أولاً 📍");
-            if (customerPhone === "") return alert("عيني بلا زحمة، اكتب رقمك حتى يكدر السايق يخابرك! 📱");
+    const region = deliveryRegions[areaIndex];
+    const customerPhone = phoneInput; 
+    
+    // حساب السعر
+    const foodTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+    const uniqueVendors = new Set(cart.map(item => item.vendorId));
+    let extraStopPrice = 0;
+    if (uniqueVendors.size > 1) extraStopPrice = (uniqueVendors.size - 1) * EXTRA_STOP_FEE;
+    const grandTotal = foodTotal + region.price + extraStopPrice;
 
-            const region = deliveryRegions[areaIndex];
-            
-            // حسابات السعر
-            const foodTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-            const uniqueVendors = new Set(cart.map(item => item.vendorId));
-            const extraStopPrice = (uniqueVendors.size > 1) ? (uniqueVendors.size - 1) * EXTRA_STOP_FEE : 0;
-            const grandTotal = foodTotal + region.price + extraStopPrice;
+    // تغيير نص الزر
+    const btn = document.querySelector('#invoiceModal .action-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '🔄 جاري تحويلك للواتساب...';
+    btn.disabled = true;
 
-            // تغيير زر الإرسال
-            const btn = document.querySelector('#invoiceModal .action-btn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '⏳ جاري إرسال الطلب...';
-            btn.disabled = true;
+    // توليد رقم بسيط بدون هاشتاك
+    const simpleID = Math.floor(Math.random() * 1000000);
 
-            // ⚡ تجهيز البيانات بالأسماء الصحيحة للسكربت
-            const orderData = {
-                secret_key: "Ashur123456",
-                customer_name: "زبون آشور كات", // اسم افتراضي لأن ماكو حقل اسم
-                customer_phone: customerPhone,
-                customer_area: region.name,
-                order_details: cart.map(i => `${i.qty}x ${i.name} (${i.vendorName})`).join('، '),
-                total_price: grandTotal.toLocaleString() + " د.ع",
-                notes: deliveryNote || "لا توجد",
-                order_id: "#" + Math.floor(Math.random() * 1000000)
-            };
+    // تجهيز البيانات
+    const orderData = {
+        order_id: "#" + simpleID, // للشيت نخليه مع هاشتاك
+        customer_name: "زبون آشور كات",
+        customer_phone: customerPhone,
+        customer_area: region.name,
+        order_details: cart.map(i => `${i.qty}x ${i.name} (${i.vendorName}) {${i.price * i.qty}}`).join(' | '), 
+        total_price: grandTotal.toLocaleString() + " د.ع",
+        notes: deliveryNote
+    };
 
-            // الإرسال
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(orderData)
-            }).then(() => {
-                // تحويل للواتساب بعد نجاح الإرسال
-                let msg = `*🚀 طلب جديد من آشور كات*\n`;
-                msg += `📍 *المنطقة:* ${region.name}\n📞 *هاتف:* ${customerPhone}\n`;
-                msg += `---------------------------\n`;
-                cart.forEach(i => msg += `▪️ ${i.qty}x ${i.name} [${i.vendorName}]\n`);
-                msg += `---------------------------\n💰 *الكلي:* ${grandTotal.toLocaleString()} د.ع`;
-                
-                const targetPhone = driversPhone[region.driver_key] || driversPhone['default'];
-                window.location.href = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
-                
-                // تنظيف
-                cart = [];
-                updateCartUI();
-                closeInvoice();
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }).catch(e => {
-                alert("حدث خطأ بسيط، سيتم تحويلك للواتساب مباشرة.");
-                window.location.href = `https://wa.me/9647717324456`; // رقم احتياطي
-            });
-        }
+    // الإرسال
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData)
+    }).then(() => {
+        
+        // 👇 هنا الترتيب القوي للواتساب
+        // شلنا الهاشتاك من الرسالة وخلينا أقواس واضحة
+        let msg = `*🚀 طلب جديد من آشور كات*\n`;
+        msg += `📄 *رقم الوصل:* ( ${simpleID} )\n`; 
+        msg += `📍 *المنطقة:* ${region.name}\n`;
+        msg += `📞 *هاتف الزبون:* ${customerPhone}\n`;
+        if(deliveryNote) msg += `📝 *ملاحظة:* ${deliveryNote}\n`;
+        msg += `---------------------------\n`;
+        
+        cart.forEach(item => {
+            msg += `▪️ ${item.qty}x ${item.name} [${item.vendorName}]\n`;
+        });
+        
+        msg += `---------------------------\n`;
+        msg += `💰 *المبلغ الكلي (واصل):* ${grandTotal.toLocaleString()} د.ع\n`;
+        
+        // تنظيف
+        cart = [];
+        updateCartUI();
+        closeInvoice();
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        
+        // تحويل
+        const targetPhone = driversPhone[region.driver_key] || driversPhone['default'];
+        const whatsappURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
+        window.location.href = whatsappURL;
+
+    }).catch(e => {
+        alert("حدث خطأ، حاول مرة أخرى.");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
+}
         
         window.onclick = (e) => { 
             if(e.target.className === 'modal-overlay') {
