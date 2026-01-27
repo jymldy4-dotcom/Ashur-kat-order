@@ -294,43 +294,23 @@
             { name: "الجميلة", price: 2250, driver_key: "driver1" }, { name: "حي الجمعية", price: 2250, driver_key: "driver1" },
             { name: "تل الماجد", price: 2250, driver_key: "driver1" }, { name: "تل الحمدان", price: 2250, driver_key: "driver1" },
             { name: "الطوب", price: 2250, driver_key: "driver1" }, { name: "حي الضغط", price: 2250, driver_key: "driver1" },
-            { name: "الخصم", price: 2500, driver_key: "driver2" }, { name: "السكنية", price: 4250, driver_key: "driver2" }
+            { name: "الخصم", price: 2500, driver_key: "driver2" }, { name: "السكنية", price: 5250, driver_key: "driver2" }
         ];
 
         const vendors = [
-            { id: 'jwwelry al athraa', name: 'مجوهرات العذراء', type: 'supermarket', img: 'img/ath.jpg', time: '30-45 د', open: 9, close: 1 },
-            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '30-45 د', open: 14, close: 5},
-            { id: 'osama', name: 'مطعم ومشويات أسامة', type: 'restaurant', img: 'img/asamh.jpg', time: '40-50 د', open: 8, close: 1 },
-            { id: 'hala', name: 'هلا فود', type: 'restaurant', img: 'img/hala.jpg', time: '35-45 د', open: 14, close: 5 },
-            { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د', open: 8, close: 24 }, 
+            { id: 'fuad', name: 'مطعم فؤاد', type: 'restaurant', img: 'img/el.jpg', time: '20-30 د', open: 8, close: 5 }, 
+            { id: 'jwwelry al athraa', name: 'مجوهرات العذراء', type: 'supermarket', img: 'img/ath.jpg', time: '30-45 د', open: 9, close: 5 },
+            { id: 'hala_food', name: '🍔 هلا فود', img: 'img/hala.jpg', type: 'restaurant', open: 10, close: 5},
+            { id: 'ziad', name: 'ماركت زياد', type: 'supermarket', img: 'img/z.jpg', time: '20-30 د', open: 8, close: 5 }, 
             { id: 'blue', name: 'بلو بيري', type: 'refreshments', img: 'img/blu.jpg', time: '15-25 د', open: 12, close: 5 },
-            { id: 'baghdad', name: 'سنتر بغداد للجليب', type: 'refreshments', img: 'img/baghdad.jpg', time: '25-40 د', open: 9, close: 1},
-            { id: 'spicy', name: 'سبايسي', type: 'restaurant', img: 'img/sp.jpg', time: '25-40 د', open: 12, close: 2 },
+            { id: 'baghdad', name: 'سنتر بغداد للجليب', type: 'supermarket', img: 'img/baghdad.jpg', time: '25-40 د', open: 9, close: 5},
             { id: 'tarbush', name: 'طربوش', type: 'restaurant', img: 'img/tarbush.jpg', time: '25-40 د', open: 12, close: 5 },
-            { id: 'samer', name: 'سامر الشهير', type: 'restaurant', img: 'img/samer.jpg', time: '25-40 د', open: 12, close: 2 },
-            { id: 'hikaea', name: 'مطعم حكاية', type: 'restaurant', img: 'img/m1.jpg', time: '30-45 د', open: 9, close: 1 },
-            
+            { id: 'samer', name: 'سامر الشهير', type: 'restaurant', img: 'img/samer.jpg', time: '25-40 د', open: 12, close: 5 },
+            { id: 'hikaea', name: 'مطعم حكاية', type: 'restaurant', img: 'img/m1.jpg', time: '30-45 د', open: 9, close: 5 },
+           
         ];
 
         const products = [
-            
-            // 💥 هذا كود العرض
-            { 
-                
-                id: 999, // رقم مميز
-                vid: 'fuad', // تابع ليا مطعم؟ (مثلاً fuad)
-                name: '🔥 عرض التوفير (برجر + ببسي)', // اسم العرض
-                price: 5000, // سعر العرض
-                isHot: true, // خليه true حتى تطلع عليه علامة "نار"
-                img: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500' // صورة مغرية
-            },
-        
-            // --- العروض والسبايسي ---
-            { id: 55, vid: 'spicy', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
-            { id: 56, vid: 'spicy', name: 'شاورما دجاج', price: 2500, isHot: false, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
-            { id: 57, vid: 'spicy', name: 'بيتزا وسط', price: 8000, isHot: false, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
-            { id: 58, vid: 'spicy', name: 'ريزو دجاج', price: 5000, isHot: false, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500' },
-            { id: 59, vid: 'spicy', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
             
             // --- مطعم فؤاد ---
             { id: 1, vid: 'fuad', name: 'برجر لحم', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
@@ -340,19 +320,145 @@
             { id: 5, vid: 'fuad', name: 'فنكر', price: 1000, isHot: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
             { id: 34, vid: 'fuad', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
             
-            // --- مطعم أسامة ---
-            { id: 10, vid: 'osama', name: 'نفر كباب', price: 10000, isHot: true, img: 'img/kabab.jpg' },
-            { id: 11, vid: 'osama', name: 'دجاجة فحم', price: 14000, isHot: false, img: 'img/djaj.jpg' },
-            { id: 12, vid: 'osama', name: 'تكة لحم', price: 12000, isHot: false, img: 'img/tkh.jpg' },
-            
-            // --- هلا فود ---
-            { id: 50, vid: 'hala', name: 'سندويج كرسبي', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=500' },
-            { id: 51, vid: 'hala', name: 'سندويج إسكالوب', price: 4500, isHot: false, img: 'https://images.unsplash.com/photo-1536521642388-441263f88a61?w=500' },
-            { id: 52, vid: 'hala', name: 'ساندويش فاهيتا', price: 4500, isHot: false, img: 'img/faheta.jpg' },
-            { id: 53, vid: 'hala', name: 'بيتزا دجاج', price: 7500, isHot: false, img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500' },
-            { id: 54, vid: 'hala', name: 'تشيكن سبايسي', price: 6000, isHot: false, img: 'https://images.unsplash.com/photo-1615557960916-5f4791effe9d?w=500' },
-            { id: 34, vid: 'hala', name: 'بيبسي', price: 500, isHot: false, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=500' },
-            
+            // ✅✅ منتجات هلا فود الجديدة (اللي تطلع بالاقسام) ✅✅
+            { id: 200, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا لححم صغير', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 201, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا لحم وسط', price: 9000, isHot: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
+            { id: 202, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا لحم كبير', price: 12000, isHot: true, img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
+            { id: 203, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج صغير', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 203, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج وسط', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 204, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج كبير', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 205, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا ببروني صغير', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 206, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا ببروني وسط', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 207, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا ببروني كبير', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 208, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا سجق صغير', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 209, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا سجق وسط', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 210, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا سجق كبير', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 211, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا باربيكيو صغير', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 212, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا باربيكيو وسط', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 213, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا باربيكيو كبير', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 214, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا مارغريتا صغير', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 215, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا مارغريتا وسط', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 216, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا مارغريتا كبير', price: 9000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 217, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا خضار صغير', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 218, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا خضار وسط', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 219, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا خضار كبير', price: 9000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 220, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا هلا فود صغير', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 221, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا هلا فود وسط', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 222, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا هلا فود كبير', price: 13000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 223, vid: 'hala_food', sub: 'hala_pizza', name: 'صاج ايطالي لحم', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 224, vid: 'hala_food', sub: 'hala_pizza', name: 'صاج ايطالي دجاج', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 225, vid: 'hala_food', sub: 'hala_pizza', name: 'لحم بعجين وسط', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 226, vid: 'hala_food', sub: 'hala_pizza', name: 'لحم بعجين وسط بالجبن ', price: 2500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 227, vid: 'hala_food', sub: 'hala_pizza', name: 'لحم بعجين كبير', price: 3000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 228, vid: 'hala_food', sub: 'hala_pizza', name: 'لحم بعجين كبير بالجبن', price: 3500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 229, vid: 'hala_food', sub: 'hala_pizza', name: 'منقوشة جبن', price: 2500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 230, vid: 'hala_food', sub: 'hala_pizza', name: 'منقوشة بالزعتر', price: 1500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 231, vid: 'hala_food', sub: 'hala_pizza', name: 'منقوشة زعتر بالجبن', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 232, vid: 'hala_food', sub: 'hala_pizza', name: 'منقوشة محمرة', price: 1500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 233, vid: 'hala_food', sub: 'hala_pizza', name: 'منقوشة محمرة بالجبن', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 234, vid: 'hala_food', sub: 'hala_shaorma', name: 'شاورما صاج', price: 2500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 235, vid: 'hala_food', sub: 'hala_shaorma', name: 'ساندويش شاورما', price: 2500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 236, vid: 'hala_food', sub: 'hala_shaorma', name: 'شاورما ساندويش اكسسترا', price: 3000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 237, vid: 'hala_food', sub: 'hala_shaorma', name: 'وجبة شاورما دجاج', price: 3500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 238, vid: 'hala_food', sub: 'hala_shaorma', name: 'وجبة شاورما صاج 10 قطع', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 239, vid: 'hala_food', sub: 'hala_shaorma', name: 'وجبة شاورما عائلي 25 قطعة', price: 13000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 313, vid: 'hala_food', sub: 'hala_shaorma', name: 'شاورما بانيه', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 239, vid: 'hala_food', sub: 'hala_shaorma', name: 'حمص بالشورما', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 314, vid: 'hala_food', sub: 'hala_shaorma', name: 'طبق شاورما ماريا', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 315, vid: 'hala_food', sub: 'hala_shaorma', name: 'ربع كيلو شاورما', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 316, vid: 'hala_food', sub: 'hala_shaorma', name: 'نصف كيلو شاورما', price: 13000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 317, vid: 'hala_food', sub: 'hala_shaorma', name: 'كيلو شاورما', price: 25000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 318, vid: 'hala_food', sub: 'hala_shaorma', name: 'صاج لحم عراقي', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 319, vid: 'hala_food', sub: 'hala_shaorma', name: 'ساندويش لحم', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 320, vid: 'hala_food', sub: 'hala_shaorma', name: 'وجبة شاورما لحم عراقي', price: 5500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 321, vid: 'hala_food', sub: 'hala_shaorma', name: 'وجبة شاورما لحم 10 قطع', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 322, vid: 'hala_food', sub: 'hala_shaorma', name: 'وجبة شاورما لحم عائلي 20 قطعة', price: 18000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 323, vid: 'hala_food', sub: 'hala_shaorma', name: 'حمص باللحم', price: 12000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 324, vid: 'hala_food', sub: 'hala_shaorma', name: 'ربع كيلو لحم عراقي', price: 13000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 325, vid: 'hala_food', sub: 'hala_shaorma', name: 'نصف كيلو لحم عراقي', price: 25000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 326, vid: 'hala_food', sub: 'hala_shaorma', name: 'كيلو لحم عراقي', price: 45000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 327, vid: 'hala_food', sub: 'hala_shaorma', name: 'ميكس شاورما هلا فود 10 قطع', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 328, vid: 'hala_food', sub: 'hala_shaorma', name: 'ميكس شاورما هلا فود 20 قطعة', price: 15000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 335, vid: 'hala_food', sub: 'hala_burger', name: 'بركر دجاج', price: 3000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 240, vid: 'hala_food', sub: 'hala_burger', name: 'بكر دجاج بالجبن', price: 3500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 241, vid: 'hala_food', sub: 'hala_burger', name: 'بركر لحم عراقي', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 241, vid: 'hala_food', sub: 'hala_burger', name: 'بركر لحم عراقي بالجبن', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 241, vid: 'hala_food', sub: 'hala_burger', name: 'وجبة بركر دجاج', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 242 ,vid: 'hala_food', sub: 'hala_burger', name: 'وجبة بركر لحم', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 243, vid: 'hala_food', sub: 'hala_burger', name: 'بركر لحم بالفطر', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 244, vid: 'hala_food', sub: 'hala_burger', name: 'سبايسي بركر', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 245, vid: 'hala_food', sub: 'hala_burger', name: 'بركر هلا فود', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 246, vid: 'hala_food', sub: 'hala_sandweh', name: 'فيلادليفيا لحم', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 247, vid: 'hala_food', sub: 'hala_sandweh', name: 'ميت بولنس', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 248, vid: 'hala_food', sub: 'hala_sandweh', name: 'مكسيكانو', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 249, vid: 'hala_food', sub: 'hala_sandweh', name: 'سوبريم', price: 4500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 250, vid: 'hala_food', sub: 'hala_sandweh', name: 'فاهيتا', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 251, vid: 'hala_food', sub: 'hala_sandweh', name: 'شيش طاووق', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 252, vid: 'hala_food', sub: 'hala_sandweh', name: 'زنكر', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 253, vid: 'hala_food', sub: 'hala_sandweh', name: 'جكن بولنس', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 254, vid: 'hala_food', sub: 'hala_sandweh', name: 'سكالوب', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 255, vid: 'hala_food', sub: 'hala_sandweh', name: 'تويستر', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 256, vid: 'hala_food', sub: 'hala_sandweh', name: 'كرسبي', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 257, vid: 'hala_food', sub: 'hala_sandweh', name: 'سجق', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 258, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجبة شيش طاووق', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 259, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجبة سوبريم', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 260, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجبة مكسيكانو', price: 9000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 261, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجلة زنكر', price: 9000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 262, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجبة فاهيتا', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 263, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجبة كرسبي', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 264, vid: 'hala_food', sub: 'hala_atbaq', name: 'وجبة سكالوب', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 265, vid: 'hala_food', sub: 'hala_atbaq', name: 'اجنحة بوفالو', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 266, vid: 'hala_food', sub: 'hala_atbaq', name: 'اجنحة هاني ماسترد', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 267, vid: 'hala_food', sub: 'hala_kentake', name: 'كنتاكي 3 قطع', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 268, vid: 'hala_food', sub: 'hala_kentake', name: 'كنتاكي 5 قطع', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 269, vid: 'hala_food', sub: 'hala_kentake', name: 'كنتاكي 10 قطع', price: 18000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 270, vid: 'hala_food', sub: 'hala_kentake', name: 'وجبة كنتاكي هلا فود', price: 10000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 271, vid: 'hala_food', sub: 'hala_rezo', name: 'ريزو شاورما دجاج', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 272, vid: 'hala_food', sub: 'hala_rezo', name: 'ريزو شاورما بالجبن', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 273, vid: 'hala_food', sub: 'hala_rezo' ,name: 'ريزو ستربس', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 274, vid: 'hala_food', sub: 'hala_rezo', name: 'ريزو ستربس بالجبن', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 275, vid: 'hala_food', sub: 'hala_rezo', name: 'ريزو لحم', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 276, vid: 'hala_food', sub: 'hala_rezo', name: 'ريزو لحم بالجبن', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 277, vid: 'hala_food', sub: 'hala_rezo', name: 'ريزو هلا فود ', price: 7000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 279, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة سيزر', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 280, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة فتوش', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 281, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة يونانية', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 282, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة تبولة', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 283, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة غربية', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 284, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة ذرة', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 285, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة شرقية', price: 3500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 286, vid: 'hala_food', sub: 'hala_salata', name: 'سلطة هلا فود', price: 6000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 287, vid: 'hala_food', sub: 'hala_muqblat', name: 'فنكر', price: 1000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 288, vid: 'hala_food', sub: 'hala_muqblat', name: 'فنكر دبل', price: 1500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 289, vid: 'hala_food', sub: 'hala_muqblat', name: 'فنكر دبل بالجبن', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 290, vid: 'hala_food', sub: 'hala_muqblat', name: 'كومبيز', price: 5000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 291, vid: 'hala_food', sub: 'hala_muqblat', name: 'اصابع موزريلا', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 292, vid: 'hala_food', sub: 'hala_muqblat', name: 'حلقات بصل', price: 3000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 293, vid: 'hala_food', sub: 'hala_muqblat', name: 'ماعون مقبلات صغير', price: 2000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 294, vid: 'hala_food', sub: 'hala_muqblat', name: 'ماعون مقبلات وسط', price: 3000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 295, vid: 'hala_food', sub: 'hala_muqblat', name: 'ماعون مقبلات كبير', price: 4000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 296, vid: 'hala_food', sub: 'hala_sus', name: 'صوص ثموية', price: 250, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 297, vid: 'hala_food', sub: 'hala_sus', name: 'صوص مايونيز', price: 250, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 298, vid: 'hala_food', sub: 'hala_sus', name: 'صوص جبن', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 299, vid: 'hala_food', sub: 'hala_sus', name: 'صوص باربكيو', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 300, vid: 'hala_food', sub: 'hala_sus', name: 'صوص هلا فود', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 201, vid: 'hala_food', sub: 'hala_sus', name: 'صوص سبايسي', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 302, vid: 'hala_food', sub: 'hala_sus', name: 'صوص هاني ماسترد', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 303, vid: 'hala_food', sub: 'hala_pepsi', name: 'ببسي', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 304, vid: 'hala_food', sub: 'hala_pepsi', name: 'كولا', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 305, vid: 'hala_food', sub: 'hala_pepsi', name: 'بطل ببسي عائلي', price: 1250, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 306, vid: 'hala_food', sub: 'hala_pepsi', name: 'لبن', price: 500, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 307, vid: 'hala_food', sub: 'hala_pepsi', name: 'ماء', price: 250, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 308, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 309, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 310, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 311, vid: 'hala_food', sub: 'hala_pizza', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 329, vid: 'hala_food', sub: 'hala_shaorma', name: '', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 330, vid: 'hala_food', sub: 'hala_shaorma', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 331, vid: 'hala_food', sub: 'hala_shaorma', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 332, vid: 'hala_food', sub: 'hala_shaorma', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 333, vid: 'hala_food', sub: 'hala_shaorma', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
+            { id: 334, vid: 'hala_food', sub: 'hala_shaorma', name: 'بيتزا دجاج', price: 8000, isHot: true, img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500' },
             // --- سوبر ماركت زياد ---
             { id: 20, vid: 'ziad', name: 'زيت (1 لتر)', price: 2250, isHot: false, img: 'img/tunsa.jpg' },
             { id: 21, vid: 'ziad', name: 'شاي (500غ)', price: 4000, isHot: false, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500' },
@@ -523,7 +629,6 @@
                 </div>`;
             });
         }
-
         function filterVendors(type, el) {
             document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
@@ -531,13 +636,19 @@
         }
 
        // 1️⃣ دالة فتح المطعم أو المحل
-        function openVendor(vid) {
+          function openVendor(vid) {
             currentVendor = vendors.find(v => v.id === vid);
             if (!isOpen(currentVendor)) return alert("عذراً، هذا القسم مغلق الآن 🌙");
 
             // 🛑 هنا التعديل الخاص لـ بلو بيري
             if (vid === 'blue') {
                 showBlueberryCategories(); // دالة خاصة بس لبلو بيري
+                return;
+            }
+
+            // 🛑🛑🛑 هنا التعديل الجديد لـ هلا فود 🛑🛑🛑
+            if (vid === 'hala_food') {
+                showHalaFoodCategories(); // دالة خاصة لهلا فود
                 return;
             }
 
@@ -548,17 +659,26 @@
         }
 
         // 3️⃣ دالة تعرض المنتجات "كتابة فقط" (لستة)
-function showSubList(subType, title) {
+        function showSubList(subType, title) {
             const grid = document.getElementById('productsGrid');
             
-            // ✅✅ السحر هنا: غيرنا وظيفة زر الرجوع الفوق
+            // ✅✅ السحر هنا: نحدد زر الرجوع وين يودي حسب المنتج
             const backBtn = document.getElementById('backBtn');
-            backBtn.setAttribute('onclick', 'showBlueberryCategories()'); // يرجع للأقسام
+            
+            // اذا كان المنتج تابع لهلا فود، الرجوع يودي لهلا فود
+            if(subType.includes('hala')) {
+                backBtn.setAttribute('onclick', 'showHalaFoodCategories()');
+            } else {
+                // والا يودي لبلو بيري
+                backBtn.setAttribute('onclick', 'showBlueberryCategories()');
+            }
+            
             backBtn.innerHTML = 'رجوع للأقسام <i class="fas fa-arrow-right"></i>';
 
             grid.innerHTML = `<h3 style="grid-column:1/-1; color:var(--primary); margin-bottom:10px;">${title}</h3>`;
             
-            const subProducts = products.filter(p => p.vid === 'blue' && p.sub === subType);
+            // ⚠️ تعديل الفلتر ليشمل الاثنين
+            const subProducts = products.filter(p => (p.vid === 'blue' || p.vid === 'hala_food') && p.sub === subType);
 
             if(subProducts.length === 0) {
                 grid.innerHTML += '<p style="text-align:center;">لا توجد مواد 😴</p>';
@@ -577,10 +697,10 @@ function showSubList(subType, title) {
                 `;
             });
         }
-function showBlueberryCategories() {
+
+        // دالة بلو بيري (ما تغيرت)
+        function showBlueberryCategories() {
             setupProductView(); 
-            
-            // ✅ تعديل مهم: زر الرجوع هنا يودي للرئيسية
             const backBtn = document.getElementById('backBtn');
             backBtn.setAttribute('onclick', 'showHome()'); 
             backBtn.innerHTML = 'القائمة الرئيسية <i class="fas fa-home"></i>';
@@ -588,7 +708,6 @@ function showBlueberryCategories() {
             const grid = document.getElementById('productsGrid');
             document.getElementById('searchInput').placeholder = "ابحث داخل بلو بيري...";
             
-            // الكارتات
             grid.innerHTML = `
                 <div class="vendor-card" onclick="showSubList('juice', '🥤 قائمة العصائر')" style="height:150px;">
                     <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500" class="v-img">
@@ -602,10 +721,78 @@ function showBlueberryCategories() {
 
                 <div class="vendor-card" onclick="showSubList('ice', '🍦 آيس كريم')" style="height:150px;">
                     <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500" class="v-img">
-                    <div class="v-info-overlay"><div class="v-name">🍦 آيس كريم </div></div>
+                    <div class="v-info-overlay"><div class="v-name">🍦 آيس كريم </div></div>    
+            `;
+        }
+
+        // 🆕🆕🆕 دالة هلا فود الجديدة (نفس نظام بلو بيري)
+        function showHalaFoodCategories() {
+            setupProductView(); 
+            const backBtn = document.getElementById('backBtn');
+            backBtn.setAttribute('onclick', 'showHome()'); 
+            backBtn.innerHTML = 'القائمة الرئيسية <i class="fas fa-home"></i>';
+
+            const grid = document.getElementById('productsGrid');
+            document.getElementById('searchInput').placeholder = "ابحث داخل هلا فود...";
+            
+            grid.innerHTML = `
+                <div class="vendor-card" onclick="showSubList('hala_burger', '🍔 برجر ')" style="height:150px;">
+                    <img src="img/h1.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">🍔 برجر </div></div>
+                </div>
+
+                <div class="vendor-card" onclick="showSubList('hala_pizza', '🍕 بيتزا ومعجنات')" style="height:150px;">
+                    <img src="img/h2.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">🍕 بيتزا ومعجنات</div></div>
+                </div>
+
+                  <div class="vendor-card" onclick="showSubList('hala_rezo', 'اطباق الريزو')" style="height:150px;">
+                    <img src="img/h3.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">اطباق الريزو</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_shaorma', 'شاورما ')" style="height:150px;">
+                    <img src="img/h4.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">شاورما</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_sandweh', 'ساندويج')" style="height:150px;">
+                    <img src="img/h5.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">ساندويج</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_atbaq', 'اطباق')" style="height:150px;">
+                    <img src="img/h6.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">اطباق</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_kentake', 'كنتاكي')" style="height:150px;">
+                    <img src="img/h7.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name"> كنتاكي</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_salata', 'سلطات')" style="height:150px;">
+                    <img src="img/h8.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">سلطات</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_muqblat', 'مقبلات')" style="height:150px;">
+                    <img src="img/h9.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">مقبلات</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_sus', 'الصوصات')" style="height:150px;">
+                    <img src="img/h10.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">الصوصات</div></div>
+                </div>
+
+                 <div class="vendor-card" onclick="showSubList('hala_pepsi', 'مشروبات')" style="height:150px;">
+                    <img src="img/h11.jpg" class="v-img">
+                    <div class="v-info-overlay"><div class="v-name">مشروبات</div></div>
                 </div>
             `;
         }
+
         function showHome() {
             document.getElementById('searchInput').value = '';
             document.getElementById('searchInput').placeholder = "شنو مشتهي اليوم؟ (برجر، بيتزا...)";
@@ -637,13 +824,6 @@ function showBlueberryCategories() {
                     <button class="p-btn" onclick="openAddModal(${p.id})">أضف للسلة +</button>
                 </div>`;
         }
-        function showHome() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('productsGrid').style.display = 'none';
-            document.getElementById('vendorsGrid').style.display = 'grid';
-            document.getElementById('mainTabs').style.display = 'block';
-            document.getElementById('backBtn').style.display = 'none';
-        }
         function searchProducts() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const grid = document.getElementById('productsGrid');
@@ -668,9 +848,12 @@ function showBlueberryCategories() {
             document.getElementById('itemNote').value = ""; 
             document.querySelectorAll('.options-container').forEach(div => div.style.display = 'none');
             document.querySelectorAll('.options-container input').forEach(c => c.checked = false);
+            
+            // ✅ هنا التصحيح: بما ان هلا فود نوعه مطعم راح تطلع الملاحظات تلقائياً
             if(currentVendor.type === 'restaurant') document.getElementById('restaurantOptions').style.display = 'block';
             else if (currentVendor.type === 'supermarket') document.getElementById('supermarketOptions').style.display = 'block';
             else if (currentVendor.type === 'refreshments') document.getElementById('refreshmentOptions').style.display = 'block';
+            
             document.getElementById('addModal').style.display = 'flex';
         }
         function updateQty(n) { if(currentQty + n >= 1) { currentQty += n; document.getElementById('qtyVal').innerText = currentQty; } }
